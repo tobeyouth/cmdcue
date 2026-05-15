@@ -1,0 +1,842 @@
+# =============================================================================
+# GH PR — Pull Request operations
+# https://cli.github.com/manual/gh_pr
+# =============================================================================
+
+- id: gh.pr.create
+  tool: gh
+  category: pr
+  title: Create a pull request
+  i18n:
+    zh:
+      title: 创建 Pull Request
+  intent:
+    verbs:
+      - create
+      - new
+      - make
+      - 创建
+      - 新建
+    objects:
+      - pull request
+      - pr
+      - PR
+    queries:
+      - gh pr create
+      - create pull request
+      - 新建 PR
+      - 创建 pull request
+      - gh pr new
+  shortcuts: []
+  commands:
+    - command: gh pr create --title "<title>" --body "<body>"
+      description: Create PR with specified title and body
+      i18n:
+        zh:
+          description: 指定标题和正文创建 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr create
+      description: Interactively create a PR (title, body, reviewers, labels)
+      i18n:
+        zh:
+          description: 交互式创建 PR（标题、正文、审核人、标签）
+      pasteable: true
+      risk: safe
+    - command: gh pr create --fill
+      description: Auto-fill title and body from commit messages
+      i18n:
+        zh:
+          description: 用提交信息自动填充标题和正文
+      pasteable: true
+      risk: safe
+    - command: gh pr create --fill-first
+      description: Use first commit message for title and body
+      i18n:
+        zh:
+          description: 使用第一个提交信息作为标题和正文
+      pasteable: true
+      risk: safe
+    - command: gh pr create --draft
+      description: Create as a draft pull request
+      i18n:
+        zh:
+          description: 创建为草稿 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr create --base <base-branch>
+      description: Specify the target branch to merge into
+      i18n:
+        zh:
+          description: 指定目标分支
+      pasteable: true
+      risk: safe
+    - command: gh pr create --reviewer <user-or-team>
+      description: Request reviews from specific users or teams
+      i18n:
+        zh:
+          description: 指定审核人或团队
+      pasteable: true
+      risk: safe
+    - command: gh pr create --label <label> --label <label>
+      description: Add labels to the PR
+      i18n:
+        zh:
+          description: 为 PR 添加标签
+      pasteable: true
+      risk: safe
+    - command: gh pr create --assignee @me
+      description: Assign the PR to yourself
+      i18n:
+        zh:
+          description: 将 PR 分配给自己
+      pasteable: true
+      risk: safe
+    - command: gh pr create --project "<project-title>"
+      description: Add PR to a GitHub project
+      i18n:
+        zh:
+          description: 将 PR 添加到 GitHub 项目
+      pasteable: true
+      risk: safe
+    - command: gh pr create --web
+      description: Open the web browser to create a PR
+      i18n:
+        zh:
+          description: 在浏览器中打开创建 PR 页面
+      pasteable: true
+      risk: safe
+    - command: gh pr create --dry-run
+      description: Print PR details without actually creating it
+      i18n:
+        zh:
+          description: 仅打印 PR 详情，不实际创建
+      pasteable: true
+      risk: safe
+    - command: gh pr create --editor
+      description: Open text editor to write title and body
+      i18n:
+        zh:
+          description: 打开文本编辑器编写标题和正文
+      pasteable: true
+      risk: safe
+  notes:
+    - If the current branch isn't pushed, gh will prompt to push or fork
+    - Use --head user:branch to specify a head repo (useful for forks)
+    - Link issues with "Fixes #123" or "Closes #123" in the PR body
+    - Adding projects requires project scope — run gh auth refresh -s <scope>
+
+- id: gh.pr.list
+  tool: gh
+  category: pr
+  title: List pull requests
+  i18n:
+    zh:
+      title: 列出 Pull Requests
+  intent:
+    verbs:
+      - list
+      - show
+      - view
+      - browse
+      - 列出
+      - 查看
+    objects:
+      - pull request
+      - pr
+      - pull requests
+      - PR
+    queries:
+      - gh pr list
+      - list pull requests
+      - 查看 PR 列表
+      - gh pr 列表
+  shortcuts: []
+  commands:
+    - command: gh pr list
+      description: List open pull requests in the current repo
+      i18n:
+        zh:
+          description: 列出当前仓库的开放 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --state closed
+      description: List closed pull requests
+      i18n:
+        zh:
+          description: 列出已关闭的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --state merged
+      description: List merged pull requests
+      i18n:
+        zh:
+          description: 列出已合并的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --base <base-branch>
+      description: List PRs targeting a specific branch
+      i18n:
+        zh:
+          description: 列出指向特定分支的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --author <user>
+      description: List PRs created by a specific user
+      i18n:
+        zh:
+          description: 列出特定用户创建的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --assignee @me
+      description: List PRs assigned to you
+      i18n:
+        zh:
+          description: 列出分配给你的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --label <label> --label <label>
+      description: Filter PRs by labels
+      i18n:
+        zh:
+          description: 按标签筛选 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --search "<query>"
+      description: Search PRs by keyword
+      i18n:
+        zh:
+          description: 按关键词搜索 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr list --json <fields>
+      description: Output PR list as JSON
+      i18n:
+        zh:
+          description: 以 JSON 格式输出 PR 列表
+      pasteable: true
+      risk: safe
+  notes:
+    - Use --limit N to control how many PRs are returned (default 20)
+
+- id: gh.pr.view
+  tool: gh
+  category: pr
+  title: View a pull request
+  i18n:
+    zh:
+      title: 查看 Pull Request
+  intent:
+    verbs:
+      - view
+      - show
+      - display
+      - 查看
+      - 显示
+    objects:
+      - pull request
+      - pr
+      - PR
+    queries:
+      - gh pr view
+      - view pull request
+      - 查看 PR
+      - gh pr 查看
+  shortcuts: []
+  commands:
+    - command: gh pr view
+      description: View PR for the current branch
+      i18n:
+        zh:
+          description: 查看当前分支的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr view <pr-number>
+      description: View a specific PR by number
+      i18n:
+        zh:
+          description: 查看指定编号的 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr view <pr-number> --web
+      description: Open PR in the browser
+      i18n:
+        zh:
+          description: 在浏览器中打开 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr view --comments
+      description: View PR with all comments
+      i18n:
+        zh:
+          description: 查看 PR 及其所有评论
+      pasteable: true
+      risk: safe
+    - command: gh pr view --json <fields>
+      description: View PR as JSON with specific fields
+      i18n:
+        zh:
+          description: 以 JSON 格式查看 PR 特定字段
+      pasteable: true
+      risk: safe
+  notes:
+    - Without an argument, shows the PR for the current branch
+
+- id: gh.pr.checkout
+  tool: gh
+  category: pr
+  title: Check out a pull request locally
+  i18n:
+    zh:
+      title: 检出 Pull Request 到本地
+  intent:
+    verbs:
+      - checkout
+      - switch
+      - fetch
+      - 检出
+      - 切换
+    objects:
+      - pull request
+      - pr
+      - branch
+      - PR
+    queries:
+      - gh pr checkout
+      - checkout pull request
+      - 检出 PR
+      - gh pr 检出
+  shortcuts: []
+  commands:
+    - command: gh pr checkout <pr-number>
+      description: Check out PR <pr-number> as a local branch
+      i18n:
+        zh:
+          description: 将 PR <pr-number> 检出为本地分支
+      pasteable: true
+      risk: safe
+    - command: gh pr checkout
+      description: Check out the PR for the current branch
+      i18n:
+        zh:
+          description: 检出当前分支关联的 PR
+      pasteable: true
+      risk: safe
+  notes:
+    - The PR branch will be checked out with the PR number as the branch name
+
+- id: gh.pr.merge
+  tool: gh
+  category: pr
+  title: Merge a pull request
+  i18n:
+    zh:
+      title: 合并 Pull Request
+  intent:
+    verbs:
+      - merge
+      - combine
+      - merge
+      - 合并
+    objects:
+      - pull request
+      - pr
+      - PR
+    queries:
+      - gh pr merge
+      - merge pull request
+      - 合并 PR
+      - gh pr 合并
+  shortcuts: []
+  commands:
+    - command: gh pr merge <pr-number>
+      description: Merge PR <pr-number>
+      i18n:
+        zh:
+          description: 合并 PR <pr-number>
+      pasteable: true
+      risk: destructive
+    - command: gh pr merge --squash
+      description: Squash and merge the PR
+      i18n:
+        zh:
+          description: Squash 后合并 PR
+      pasteable: true
+      risk: destructive
+    - command: gh pr merge --rebase
+      description: Rebase and merge the PR
+      i18n:
+        zh:
+          description: Rebase 后合并 PR
+      pasteable: true
+      risk: destructive
+    - command: gh pr merge --delete-branch
+      description: Delete the branch after merging
+      i18n:
+        zh:
+          description: 合并后删除分支
+      pasteable: true
+      risk: destructive
+    - command: gh pr merge --auto
+      description: Merge only if all checks pass (auto-merge)
+      i18n:
+        zh:
+          description: 所有检查通过后自动合并（需要先设置好保护规则）
+      pasteable: true
+      risk: destructive
+    - command: gh pr merge --admin
+      description: Merge with admin privileges (skip restrictions)
+      i18n:
+        zh:
+          description: 用管理员权限合并（跳过限制）
+      pasteable: true
+      risk: destructive
+  notes:
+    - Default merge strategy is squash merge
+    - Use --disable-merge to disable auto-merge for a PR
+
+- id: gh.pr.close
+  tool: gh
+  category: pr
+  title: Close a pull request
+  i18n:
+    zh:
+      title: 关闭 Pull Request
+  intent:
+    verbs:
+      - close
+      - shut
+      - close
+      - 关闭
+    objects:
+      - pull request
+      - pr
+      - PR
+    queries:
+      - gh pr close
+      - close pull request
+      - 关闭 PR
+      - gh pr 关闭
+  shortcuts: []
+  commands:
+    - command: gh pr close <pr-number>
+      description: Close PR <pr-number>
+      i18n:
+        zh:
+          description: 关闭 PR <pr-number>
+      pasteable: true
+      risk: safe
+    - command: gh pr close <pr-number> --delete-branch
+      description: Close PR and delete the head branch
+      i18n:
+        zh:
+          description: 关闭 PR 并删除源分支
+      pasteable: true
+      risk: safe
+  notes:
+    - Closing a PR does not delete the branch
+
+- id: gh.pr.comment
+  tool: gh
+  category: pr
+  title: Comment on a pull request
+  i18n:
+    zh:
+      title: 评论 Pull Request
+  intent:
+    verbs:
+      - comment
+      - reply
+      - note
+      - 评论
+      - 回复
+    objects:
+      - pull request
+      - pr
+      - PR
+    queries:
+      - gh pr comment
+      - comment on pull request
+      - 评论 PR
+      - gh pr 评论
+  shortcuts: []
+  commands:
+    - command: gh pr comment <pr-number> --body "<comment>"
+      description: Add a comment to PR <pr-number>
+      i18n:
+        zh:
+          description: 为 PR <pr-number> 添加评论
+      pasteable: true
+      risk: safe
+    - command: gh pr comment <pr-number> --body-file <file>
+      description: Add a comment using a file for body text
+      i18n:
+        zh:
+          description: 使用文件内容作为评论正文
+      pasteable: true
+      risk: safe
+  notes:
+    - Use --editor to open an editor for multi-line comments
+
+- id: gh.pr.diff
+  tool: gh
+  category: pr
+  title: View pull request diff
+  i18n:
+    zh:
+      title: 查看 PR Diff
+  intent:
+    verbs:
+      - diff
+      - show
+      - view
+      - changes
+      - 查看
+      - diff
+    objects:
+      - pull request
+      - pr
+      - changes
+      - diff
+      - PR
+    queries:
+      - gh pr diff
+      - view pull request diff
+      - 查看 PR diff
+      - gh pr diff 查看
+  shortcuts: []
+  commands:
+    - command: gh pr diff <pr-number>
+      description: Show the diff of PR <pr-number>
+      i18n:
+        zh:
+          description: 显示 PR <pr-number> 的差异
+      pasteable: true
+      risk: safe
+    - command: gh pr diff <pr-number> --stat
+      description: Show diff with file change statistics
+      i18n:
+        zh:
+          description: 显示差异及文件变更统计
+      pasteable: true
+      risk: safe
+    - command: gh pr diff <pr-number> --color=always
+      description: Force color output in diff
+      i18n:
+        zh:
+          description: 强制彩色输出 diff
+      pasteable: true
+      risk: safe
+  notes:
+    - Supports standard git diff flags like --stat, --name-only
+
+- id: gh.pr.checks
+  tool: gh
+  category: pr
+  title: View pull request CI checks
+  i18n:
+    zh:
+      title: 查看 PR 状态检查
+  intent:
+    verbs:
+      - check
+      - status
+      - ci
+      - checks
+      - 查看
+      - 状态
+    objects:
+      - pull request
+      - pr
+      - checks
+      - ci
+      - PR
+    queries:
+      - gh pr checks
+      - pull request checks status
+      - 查看 PR 检查状态
+      - gh pr checks 查看
+  shortcuts: []
+  commands:
+    - command: gh pr checks <pr-number>
+      description: Show CI/check status for PR <pr-number>
+      i18n:
+        zh:
+          description: 显示 PR <pr-number> 的 CI/检查状态
+      pasteable: true
+      risk: safe
+    - command: gh pr checks <pr-number> --failed
+      description: Show only failed checks
+      i18n:
+        zh:
+          description: 仅显示失败的检查
+      pasteable: true
+      risk: safe
+    - command: gh pr checks <pr-number> --watch
+      description: Continuously poll for check status
+      i18n:
+        zh:
+          description: 持续轮询检查状态
+      pasteable: true
+      risk: safe
+  notes:
+    - Use --watch to monitor checks in real-time
+
+- id: gh.pr.edit
+  tool: gh
+  category: pr
+  title: Edit a pull request
+  i18n:
+    zh:
+      title: 编辑 Pull Request
+  intent:
+    verbs:
+      - edit
+      - update
+      - modify
+      - 编辑
+      - 修改
+    objects:
+      - pull request
+      - pr
+      - title
+      - body
+      - PR
+    queries:
+      - gh pr edit
+      - edit pull request
+      - 编辑 PR
+      - gh pr 编辑
+  shortcuts: []
+  commands:
+    - command: gh pr edit <pr-number> --title "<title>"
+      description: Change the PR title
+      i18n:
+        zh:
+          description: 修改 PR 标题
+      pasteable: true
+      risk: safe
+    - command: gh pr edit <pr-number> --body "<body>"
+      description: Change the PR body/description
+      i18n:
+        zh:
+          description: 修改 PR 正文
+      pasteable: true
+      risk: safe
+    - command: gh pr edit <pr-number> --add-label <label> --add-label <label>
+      description: Add labels to the PR
+      i18n:
+        zh:
+          description: 添加标签到 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr edit <pr-number> --remove-label <label>
+      description: Remove a label from the PR
+      i18n:
+        zh:
+          description: 从 PR 移除标签
+      pasteable: true
+      risk: safe
+    - command: gh pr edit <pr-number> --add-reviewer <user>
+      description: Add a reviewer to the PR
+      i18n:
+        zh:
+          description: 添加审核人到 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr edit <pr-number> --add-assignee @me
+      description: Add an assignee to the PR
+      i18n:
+        zh:
+          description: 添加经手人到 PR
+      pasteable: true
+      risk: safe
+    - command: gh pr edit <pr-number> --base <base-branch>
+      description: Change the target branch
+      i18n:
+        zh:
+          description: 修改目标分支
+      pasteable: true
+      risk: safe
+  notes:
+    - Use --add-* and --remove-* prefixes for label/reviewer/assignee operations
+
+- id: gh.pr.ready
+  tool: gh
+  category: pr
+  title: Mark pull request as ready for review
+  i18n:
+    zh:
+      title: 将 PR 标记为就绪
+  intent:
+    verbs:
+      - ready
+      - mark
+      - prepare
+      - review
+      - 标记
+      - 就绪
+    objects:
+      - pull request
+      - pr
+      - draft
+      - PR
+    queries:
+      - gh pr ready
+      - mark pr ready for review
+      - PR 标记为就绪
+      - gh pr ready 标记
+  shortcuts: []
+  commands:
+    - command: gh pr ready <pr-number>
+      description: Mark PR <pr-number> as ready for review (converts from draft)
+      i18n:
+        zh:
+          description: 将 PR <pr-number> 标记为可审核状态（从草稿转换）
+      pasteable: true
+      risk: safe
+  notes:
+    - "Only works on draft pull requests"
+
+- id: gh.pr.lock
+  tool: gh
+  category: pr
+  title: Lock a pull request
+  i18n:
+    zh:
+      title: 锁定 Pull Request
+  intent:
+    verbs:
+      - lock
+      - freeze
+      - restrict
+      - 锁定
+    objects:
+      - pull request
+      - pr
+      - conversation
+      - PR
+    queries:
+      - gh pr lock
+      - lock pull request
+      - 锁定 PR
+      - gh pr 锁定
+  shortcuts: []
+  commands:
+    - command: gh pr lock <pr-number>
+      description: Lock conversation on PR <pr-number>
+      i18n:
+        zh:
+          description: 锁定 PR <pr-number> 的评论功能
+      pasteable: true
+      risk: safe
+    - command: gh pr lock <pr-number> --reason "<reason>"
+      description: Lock with a reason (off-topic, spam, too heated)
+      i18n:
+        zh:
+          description: 锁定并选择原因（无关、垃圾、过于激烈）
+      pasteable: true
+      risk: safe
+  notes:
+    - Locked PRs cannot receive new comments
+
+- id: gh.pr.review
+  tool: gh
+  category: pr
+  title: Review a pull request
+  i18n:
+    zh:
+      title: 审核 Pull Request
+  intent:
+    verbs:
+      - review
+      - approve
+      - reject
+      - request-changes
+      - 审核
+      - 批准
+    objects:
+      - pull request
+      - pr
+      - PR
+    queries:
+      - gh pr review
+      - review pull request
+      - 审核 PR
+      - gh pr review 审核
+  shortcuts: []
+  commands:
+    - command: gh pr review <pr-number> --approve
+      description: Approve PR <pr-number>
+      i18n:
+        zh:
+          description: 批准 PR <pr-number>
+      pasteable: true
+      risk: safe
+    - command: gh pr review <pr-number> --request-changes --body "<review-body>"
+      description: Request changes on PR <pr-number>
+      i18n:
+        zh:
+          description: 要求修改 PR <pr-number> 并说明原因
+      pasteable: true
+      risk: safe
+    - command: gh pr review <pr-number> --comment --body "<comment>"
+      description: Comment on PR <pr-number> without approving or requesting changes
+      i18n:
+        zh:
+          description: 仅评论 PR <pr-number>（不批准也不要求修改）
+      pasteable: true
+      risk: safe
+    - command: gh pr review <pr-number> --approve --body "<review-body>" --editor
+      description: Approve with multi-line comment in editor
+      i18n:
+        zh:
+          description: 用编辑器写多行批准评论
+      pasteable: true
+      risk: safe
+  notes:
+    - "Three review types: --approve, --request-changes, --comment"
+    - Use --body-file to write review body from a file
+
+- id: gh.pr.status
+  tool: gh
+  category: pr
+  title: Show PR status for current branch
+  i18n:
+    zh:
+      title: 显示当前分支 PR 状态
+  intent:
+    verbs:
+      - status
+      - check
+      - current
+      - 状态
+      - 查看
+    objects:
+      - pull request
+      - pr
+      - branch
+      - PR
+    queries:
+      - gh pr status
+      - pull request status
+      - 当前分支 PR 状态
+      - gh pr status 查看
+  shortcuts: []
+  commands:
+    - command: gh pr status
+      description: Show PR status for the current branch and related PRs
+      i18n:
+        zh:
+          description: 显示当前分支及相关 PR 的状态
+      pasteable: true
+      risk: safe
+    - command: gh pr status --json <fields>
+      description: Show PR status as JSON
+      i18n:
+        zh:
+          description: 以 JSON 格式显示 PR 状态
+      pasteable: true
+      risk: safe
+  notes:
+    - Shows current branch PR, PRs needing your review, and recent PRs

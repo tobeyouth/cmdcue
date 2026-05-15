@@ -1,0 +1,17 @@
+- id: broken.general.demo
+  tool: broken
+  category: general
+  title: Demo invalid operation
+  intent:
+    verbs:
+      - demo
+    objects:
+      - operation
+  queries:
+    - broken demo
+  shortcuts: []
+  commands:
+    - command: broken demo <Name>
+      description: Run demo command
+      pasteable: false
+      risk: moderate

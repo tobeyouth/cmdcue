@@ -1,0 +1,87 @@
+- id: vim.marks.set
+  tool: vim
+  category: marks
+  title: Set and jump to marks
+  i18n:
+    zh:
+      title: 设置与跳转标记
+  intent:
+    verbs:
+      - mark
+      - bookmark
+      - jump
+      - 标记
+      - 书签
+      - 跳转
+    objects:
+      - mark
+      - marks
+      - 标记
+      - 位置
+    queries:
+      - vim mark
+      - vim 标记
+      - vim 跳转标记
+      - vim 书签
+  shortcuts:
+    - keys: m<letter>
+      description: Set a mark at the current cursor position (a-z local, A-Z global)
+      i18n:
+        zh:
+          description: 在当前光标位置设置标记（a-z 局部标记，A-Z 全局标记）
+    - keys: "'<letter>"
+      description: Jump to the beginning of the line with the mark
+      i18n:
+        zh:
+          description: 跳转到标记所在行的行首
+    - keys: "' <letter>"
+      description: Jump to the exact cursor position of the mark
+      i18n:
+        zh:
+          description: 跳转到标记的精确位置
+  commands:
+    - command: m<letter>
+      description: Set a mark at the cursor position
+      i18n:
+        zh:
+          description: 在光标位置设置标记
+      pasteable: true
+      risk: safe
+    - command: "'<letter>"
+      description: Jump to the line of a mark
+      i18n:
+        zh:
+          description: 跳转到标记所在行
+      pasteable: true
+      risk: safe
+- id: vim.marks.list
+  tool: vim
+  category: marks
+  title: List marks
+  i18n:
+    zh:
+      title: 列出标记
+  intent:
+    verbs:
+      - mark
+      - list
+      - show
+      - 标记
+      - 列表
+    objects:
+      - mark
+      - marks
+      - 标记
+    queries:
+      - vim list marks
+      - vim 查看标记
+      - vim 标记列表
+  shortcuts: []
+  commands:
+    - command: ":marks"
+      description: List all active marks
+      i18n:
+        zh:
+          description: 列出所有活动标记
+      pasteable: true
+      risk: readonly

@@ -1,0 +1,24 @@
+{
+  "name": "cmdcue-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/core",
+    "packages/cli",
+    "packages/raycast"
+  ],
+  "scripts": {
+    "build": "npm run build -w @cmdcue/core && npm run build -w @cmdcue/cli && npm run build -w cmdcue",
+    "dev": "npm run dev -w cmdcue",
+    "lint": "npm run lint -w cmdcue",
+    "sync-packs": "node scripts/sync-packs.cjs",
+    "test": "npm test -w @cmdcue/core",
+    "typecheck": "npm run typecheck -w @cmdcue/core && npm run typecheck -w @cmdcue/cli && tsc -p packages/raycast/tsconfig.json --noEmit",
+    "validate-packs": "node packages/cli/dist/cli.js validate-packs packages/core/packs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

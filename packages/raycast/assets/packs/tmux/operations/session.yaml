@@ -1,0 +1,436 @@
+- id: tmux.session.list
+  tool: tmux
+  category: session
+  title: List sessions
+  zh: 列出 tmux sessions
+  intent:
+    verbs:
+      - list
+      - show
+      - view
+      - ls
+      - 查看
+      - 列出
+    objects:
+      - session
+      - sessions
+      - 会话
+    queries:
+      - tmux session
+      - tmux list sessions
+      - 查看 tmux session
+      - 列出 tmux 会话
+  shortcuts:
+    - keys: prefix + s
+      description: Open the interactive session chooser
+      i18n:
+        zh:
+          description: 打开交互式 session 选择器
+  commands:
+    - command: tmux list-sessions
+      preferredCommand: tmux ls
+      description: List all sessions managed by the tmux server
+      i18n:
+        zh:
+          description: 列出 tmux server 管理的所有 sessions
+      pasteable: true
+      risk: readonly
+- id: tmux.session.new-named
+  tool: tmux
+  category: session
+  title: Create a named session
+  zh: 创建一个命名 tmux session
+  i18n:
+    zh:
+      title: 创建一个命名 tmux session
+  intent:
+    verbs:
+      - new
+      - create
+      - start
+      - 新建
+      - 创建
+      - 启动
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux new session
+      - tmux create session
+      - 新建 tmux session
+  shortcuts: []
+  commands:
+    - command: tmux new-session -s <session-name>
+      preferredCommand: tmux new -s <session-name>
+      description: Create and attach to a new named session
+      i18n:
+        zh:
+          description: 创建并进入一个命名 session
+      pasteable: true
+      risk: safe
+    - command: tmux new-session -d -s <session-name>
+      preferredCommand: tmux new -d -s <session-name>
+      description: Create a new named session in the background
+      i18n:
+        zh:
+          description: 在后台创建一个命名 session
+      pasteable: true
+      risk: safe
+  notes:
+    - Replace <session-name> before running.
+- id: tmux.session.new-or-attach
+  tool: tmux
+  category: session
+  title: Create or attach to a named session
+  zh: 创建或进入一个命名 tmux session
+  intent:
+    verbs:
+      - new
+      - create
+      - attach
+      - open
+      - 进入
+      - 创建
+      - 打开
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux create or attach session
+      - tmux session exists attach
+      - 进入或创建 tmux session
+  shortcuts: []
+  commands:
+    - command: tmux new-session -A -s <session-name>
+      preferredCommand: tmux new -A -s <session-name>
+      description: Create the session, or attach if it already exists
+      i18n:
+        zh:
+          description: 创建 session，若已存在则直接进入
+      pasteable: true
+      risk: safe
+  notes:
+    - This is often the safest daily-use session command. Replace <session-name> before running.
+- id: tmux.session.attach
+  tool: tmux
+  category: session
+  title: Attach to a session
+  zh: 进入已有 tmux session
+  intent:
+    verbs:
+      - attach
+      - connect
+      - enter
+      - 进入
+      - 连接
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux attach session
+      - 进入 tmux session
+      - 连接 tmux 会话
+  shortcuts:
+    - keys: prefix + s
+      description: Choose a session interactively from inside tmux
+      i18n:
+        zh:
+          description: 在 tmux 内交互式选择 session
+  commands:
+    - command: tmux attach-session -t <session-name>
+      preferredCommand: tmux attach -t <session-name>
+      description: Attach to an existing session by name
+      i18n:
+        zh:
+          description: 按名称进入一个已存在的 session
+      pasteable: true
+      risk: safe
+    - command: tmux attach
+      description: Attach to the most recently used session
+      i18n:
+        zh:
+          description: 进入最近使用过的 session
+      pasteable: true
+      risk: safe
+  notes:
+    - Use list-sessions first if you do not know the session name.
+- id: tmux.session.attach-detach-others
+  tool: tmux
+  category: session
+  title: Attach and detach other clients
+  zh: 进入 session 并踢掉其他客户端
+  intent:
+    verbs:
+      - attach
+      - detach
+      - take over
+      - 抢占
+      - 踢掉
+    objects:
+      - session
+      - client
+      - 会话
+      - 客户端
+    queries:
+      - tmux attach detach others
+      - tmux 抢占 session
+      - 踢掉其他 tmux client
+  shortcuts: []
+  commands:
+    - command: tmux attach-session -d -t <session-name>
+      preferredCommand: tmux attach -d -t <session-name>
+      description: Attach to a session and detach other clients attached to it
+      i18n:
+        zh:
+          description: 进入 session 并踢掉其他已连接的客户端
+      pasteable: true
+      risk: safe
+  notes:
+    - This does not destroy the session, but it detaches other clients from it.
+- id: tmux.session.detach
+  tool: tmux
+  category: session
+  title: Detach from current session
+  zh: 从当前 tmux session 分离
+  intent:
+    verbs:
+      - detach
+      - leave
+      - 退出
+      - 离开
+      - 分离
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux detach session
+      - tmux 离开 session
+  shortcuts:
+    - keys: prefix + d
+      description: Detach from the current tmux session
+      i18n:
+        zh:
+          description: 从当前 tmux session 分离
+  commands:
+    - command: tmux detach-client
+      preferredCommand: tmux detach
+      description: Detach the current client
+      i18n:
+        zh:
+          description: 断开当前客户端与 session 的连接
+      pasteable: true
+      risk: safe
+- id: tmux.session.switch
+  tool: tmux
+  category: session
+  title: Switch to another session
+  zh: 切换到另一个 tmux session
+  intent:
+    verbs:
+      - switch
+      - change
+      - 切换
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux switch session
+      - 切换 tmux session
+  shortcuts:
+    - keys: prefix + s
+      description: Choose a session interactively
+      i18n:
+        zh:
+          description: 交互式选择 session
+    - keys: prefix + ( / prefix + )
+      description: Switch to previous or next session
+      i18n:
+        zh:
+          description: 切换到上一个 / 下一个 session
+  commands:
+    - command: tmux switch-client -t <session-name>
+      preferredCommand: tmux switchc -t <session-name>
+      description: Switch the current client to another session
+      i18n:
+        zh:
+          description: 将当前客户端切换到另一个 session
+      pasteable: true
+      risk: safe
+    - command: tmux switch-client -n
+      preferredCommand: tmux switchc -n
+      description: Switch to the next session
+      i18n:
+        zh:
+          description: 切换到下一个 session
+      pasteable: true
+      risk: safe
+    - command: tmux switch-client -p
+      preferredCommand: tmux switchc -p
+      description: Switch to the previous session
+      i18n:
+        zh:
+          description: 切换到上一个 session
+      pasteable: true
+      risk: safe
+- id: tmux.session.rename
+  tool: tmux
+  category: session
+  title: Rename current session
+  zh: 重命名当前 tmux session
+  intent:
+    verbs:
+      - rename
+      - name
+      - 重命名
+      - 改名
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux rename session
+      - 重命名 tmux session
+  shortcuts:
+    - keys: prefix + $
+      description: Prompt to rename the current session
+      i18n:
+        zh:
+          description: 弹出提示重命名当前 session
+  commands:
+    - command: tmux rename-session <new-name>
+      preferredCommand: tmux rename <new-name>
+      description: Rename the current session
+      i18n:
+        zh:
+          description: 重命名当前 session
+      pasteable: true
+      risk: safe
+    - command: tmux rename-session -t <session-name> <new-name>
+      preferredCommand: tmux rename -t <session-name> <new-name>
+      description: Rename a specific session
+      i18n:
+        zh:
+          description: 重命名指定的 session
+      pasteable: true
+      risk: safe
+- id: tmux.session.kill
+  tool: tmux
+  category: session
+  title: Kill a session
+  zh: 关闭一个 tmux session
+  intent:
+    verbs:
+      - kill
+      - close
+      - delete
+      - remove
+      - 关掉
+      - 关闭
+      - 删除
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux kill session
+      - tmux 关掉 session
+      - 关闭 tmux 会话
+  shortcuts: []
+  commands:
+    - command: tmux kill-session -t <session-name>
+      description: Destroy the named session
+      i18n:
+        zh:
+          description: 销毁指定的 session
+      pasteable: true
+      risk: destructive
+  notes:
+    - This closes windows that belong only to that session and detaches clients attached to it.
+- id: tmux.session.kill-others
+  tool: tmux
+  category: session
+  title: Kill all other sessions
+  zh: 关闭除目标外的其他 tmux sessions
+  intent:
+    verbs:
+      - kill
+      - close
+      - delete
+      - cleanup
+      - 清理
+      - 关闭
+    objects:
+      - session
+      - sessions
+      - other
+      - 其他会话
+    queries:
+      - tmux kill other sessions
+      - tmux 只保留当前 session
+  shortcuts: []
+  commands:
+    - command: tmux kill-session -a -t <session-name>
+      description: Kill all sessions except the named session
+      i18n:
+        zh:
+          description: 删除除指定 session 外的所有其他 sessions
+      pasteable: true
+      risk: destructive
+- id: tmux.session.exists
+  tool: tmux
+  category: session
+  title: Check whether a session exists
+  zh: 检查 tmux session 是否存在
+  intent:
+    verbs:
+      - check
+      - exists
+      - test
+      - 检查
+      - 判断
+    objects:
+      - session
+      - 会话
+    queries:
+      - tmux check session exists
+      - 判断 tmux session 是否存在
+  shortcuts: []
+  commands:
+    - command: tmux has-session -t <session-name>
+      preferredCommand: tmux has -t <session-name>
+      description: Exit with 0 if the session exists, otherwise 1
+      i18n:
+        zh:
+          description: 若 session 存在则返回 0，否则返回 1
+      pasteable: true
+      risk: readonly
+- id: tmux.session.kill-server
+  tool: tmux
+  category: session
+  title: Kill tmux server
+  zh: 关闭 tmux server 和所有 sessions
+  intent:
+    verbs:
+      - kill
+      - close
+      - shutdown
+      - reset
+      - 关闭
+      - 重置
+    objects:
+      - server
+      - all sessions
+      - 所有会话
+    queries:
+      - tmux kill server
+      - tmux close all sessions
+      - 关闭所有 tmux session
+  shortcuts: []
+  commands:
+    - command: tmux kill-server
+      description: Kill the tmux server, all clients, and all sessions
+      i18n:
+        zh:
+          description: 关闭 tmux server 及所有 clients 和 sessions
+      pasteable: true
+      risk: destructive
+  notes:
+    - This is destructive and closes all tmux sessions.

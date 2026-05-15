@@ -1,0 +1,314 @@
+# =============================================================================
+# GH AUTH — Authentication operations
+# https://cli.github.com/manual/gh_auth
+# =============================================================================
+
+- id: gh.auth.login
+  tool: gh
+  category: auth
+  title: Log in to GitHub
+  i18n:
+    zh:
+      title: 登录 GitHub
+  intent:
+    verbs:
+      - login
+      - signin
+      - authenticate
+      - 登录
+      - 认证
+    objects:
+      - github
+      - account
+      - GitHub
+    queries:
+      - gh login
+      - github cli login
+      - 登录 github
+      - gh 登录
+      - github 认证
+  shortcuts: []
+  commands:
+    - command: gh auth login
+      description: Start interactive login flow
+      i18n:
+        zh:
+          description: 开始交互式登录流程
+      pasteable: true
+      risk: safe
+    - command: gh auth login --web
+      description: Open browser to authenticate
+      i18n:
+        zh:
+          description: 打开浏览器进行身份验证
+      pasteable: true
+      risk: safe
+    - command: gh auth login --web --clipboard
+      description: Open browser and copy one-time code to clipboard
+      i18n:
+        zh:
+          description: 打开浏览器并复制一次性验证码到剪贴板
+      pasteable: true
+      risk: safe
+    - command: gh auth login --with-token
+      description: Read token from standard input
+      i18n:
+        zh:
+          description: 从标准输入读取 token
+      pasteable: true
+      risk: safe
+    - command: gh auth login --hostname <hostname>
+      description: Authenticate against a specific GitHub Enterprise host
+      i18n:
+        zh:
+          description: 登录指定的 GitHub Enterprise 实例
+      pasteable: true
+      risk: safe
+  notes:
+    - "Minimum required scopes for a classic token: repo, read:org, gist"
+    - Use --git-protocol {ssh|https} to set the git protocol during login
+    - Use --skip-ssh-key to skip SSH key generation/upload prompt
+
+- id: gh.auth.status
+  tool: gh
+  category: auth
+  title: Check authentication status
+  i18n:
+    zh:
+      title: 查看登录状态
+  intent:
+    verbs:
+      - status
+      - check
+      - whoami
+      - 查看
+      - 状态
+    objects:
+      - auth
+      - login
+      - account
+      - 登录状态
+      - 认证状态
+    queries:
+      - gh auth status
+      - github cli logged in
+      - gh 登录状态
+      - github 已登录
+  shortcuts: []
+  commands:
+    - command: gh auth status
+      description: Show current authentication status
+      i18n:
+        zh:
+          description: 显示当前登录状态
+      pasteable: true
+      risk: safe
+    - command: gh auth status --hostname <hostname>
+      description: Check status for a specific host
+      i18n:
+        zh:
+          description: 查看指定主机的登录状态
+      pasteable: true
+      risk: safe
+  notes:
+    - Shows which account is logged in and stored credential location
+
+- id: gh.auth.logout
+  tool: gh
+  category: auth
+  title: Log out of GitHub
+  i18n:
+    zh:
+      title: 登出 GitHub
+  intent:
+    verbs:
+      - logout
+      - signout
+      - remove
+      - 登出
+      - 退出
+    objects:
+      - github
+      - account
+      - GitHub
+    queries:
+      - gh logout
+      - github cli logout
+      - gh 登出
+  shortcuts: []
+  commands:
+    - command: gh auth logout
+      description: Log out of the default host
+      i18n:
+        zh:
+          description: 登出默认主机
+      pasteable: true
+      risk: safe
+    - command: gh auth logout --hostname <hostname>
+      description: Log out of a specific host
+      i18n:
+        zh:
+          description: 登出指定主机
+      pasteable: true
+      risk: safe
+
+- id: gh.auth.refresh
+  tool: gh
+  category: auth
+  title: Refresh authentication scopes
+  i18n:
+    zh:
+      title: 刷新认证权限范围
+  intent:
+    verbs:
+      - refresh
+      - re-authenticate
+      - scopes
+      - 刷新
+      - 重新认证
+    objects:
+      - auth
+      - token
+      - scope
+      - 权限
+    queries:
+      - gh auth refresh
+      - refresh github token scopes
+      - gh 刷新 token
+  shortcuts: []
+  commands:
+    - command: gh auth refresh
+      description: Refresh authentication token with current scopes
+      i18n:
+        zh:
+          description: 刷新当前权限范围的认证 token
+      pasteable: true
+      risk: safe
+    - command: gh auth refresh -s <scope>
+      description: Add project scope to current authentication
+      i18n:
+        zh:
+          description: 为当前认证添加 project 权限
+      pasteable: true
+      risk: safe
+  notes:
+    - Required when adding new features like project management
+
+- id: gh.auth.switch
+  tool: gh
+  category: auth
+  title: Switch between authenticated accounts
+  i18n:
+    zh:
+      title: 切换账号
+  intent:
+    verbs:
+      - switch
+      - change
+      - account
+      - 切换
+      - 账号
+    objects:
+      - account
+      - user
+      - 账号
+      - 用户
+    queries:
+      - gh auth switch
+      - switch github account
+      - gh 切换账号
+  shortcuts: []
+  commands:
+    - command: gh auth switch
+      description: Interactively switch between stored accounts
+      i18n:
+        zh:
+          description: 交互式切换已存储的账号
+      pasteable: true
+      risk: safe
+    - command: gh auth switch --hostname <hostname>
+      description: Switch account for a specific host
+      i18n:
+        zh:
+          description: 切换指定主机的账号
+      pasteable: true
+      risk: safe
+
+- id: gh.auth.token
+  tool: gh
+  category: auth
+  title: Print authentication token
+  i18n:
+    zh:
+      title: 打印认证 Token
+  intent:
+    verbs:
+      - token
+      - show
+      - print
+      - view
+      - 查看
+      - 显示
+    objects:
+      - token
+      - auth
+      - token
+    queries:
+      - gh auth token
+      - print github token
+      - gh 查看 token
+  shortcuts: []
+  commands:
+    - command: gh auth token
+      description: Print the authentication token to stdout
+      i18n:
+        zh:
+          description: 将认证 token 打印到标准输出
+      pasteable: true
+      risk: destructive
+  notes:
+    - Token is printed to stdout — be careful in shared environments
+    - Requires repo scope to see tokens for GitHub.com
+
+- id: gh.auth.setup-git
+  tool: gh
+  category: auth
+  title: Set up git hooks for authentication
+  i18n:
+    zh:
+      title: 配置 Git 认证钩子
+  intent:
+    verbs:
+      - setup
+      - configure
+      - git
+      - configure
+      - 配置
+    objects:
+      - git
+      - hooks
+      - ssh
+      - Git
+      - SSH
+    queries:
+      - gh auth setup-git
+      - configure git auth
+      - gh 配置 git 认证
+  shortcuts: []
+  commands:
+    - command: gh auth setup-git
+      description: Configure git to use gh authentication
+      i18n:
+        zh:
+          description: 配置 git 使用 gh 进行认证
+      pasteable: true
+      risk: safe
+    - command: gh auth setup-git --hostname <hostname>
+      description: Set up git auth for a specific host
+      i18n:
+        zh:
+          description: 为指定主机配置 git 认证
+      pasteable: true
+      risk: safe
+  notes:
+    - Configures git credential helper to use gh authentication

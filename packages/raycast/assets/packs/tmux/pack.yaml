@@ -1,0 +1,7 @@
+id: tmux
+name: tmux
+aliases:
+  - terminal multiplexer
+  - 终端复用
+  - 分屏
+description: Terminal multiplexer operations and shortcuts

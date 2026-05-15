@@ -1,0 +1,195 @@
+- id: tmux.pane.list
+  tool: tmux
+  category: pane
+  title: List panes
+  zh: 列出 tmux panes
+  intent:
+    verbs:
+      - list
+      - show
+      - view
+      - 查看
+      - 列出
+    objects:
+      - pane
+      - panes
+      - 分屏
+      - 面板
+    queries:
+      - tmux list panes
+      - tmux pane
+      - 列出 tmux pane
+  shortcuts:
+    - keys: prefix + q
+      description: Show pane numbers briefly
+  commands:
+    - command: tmux list-panes
+      preferredCommand: tmux lsp
+      description: List panes in the current window
+      pasteable: true
+      risk: readonly
+    - command: tmux list-panes -a
+      preferredCommand: tmux lsp -a
+      description: List panes across all sessions
+      pasteable: true
+      risk: readonly
+- id: tmux.pane.close-current
+  tool: tmux
+  category: pane
+  title: Close current pane
+  zh: 关闭当前 tmux pane
+  intent:
+    verbs:
+      - close
+      - kill
+      - delete
+      - 关掉
+      - 关闭
+    objects:
+      - pane
+      - 分屏
+      - 面板
+    queries:
+      - tmux close pane
+      - tmux 关掉 pane
+      - 关闭当前 tmux 分屏
+  shortcuts:
+    - keys: prefix + x
+      description: Prompt before killing the current pane
+  commands:
+    - command: tmux kill-pane
+      preferredCommand: tmux killp
+      description: Kill the current pane
+      pasteable: true
+      risk: destructive
+- id: tmux.pane.split-horizontal
+  tool: tmux
+  category: pane
+  title: Split pane left and right
+  zh: 左右分割 tmux pane
+  intent:
+    verbs:
+      - split
+      - create
+      - new
+      - 分割
+      - 新建
+    objects:
+      - pane
+      - horizontal
+      - 左右
+      - 分屏
+    queries:
+      - tmux split horizontal
+      - tmux 左右分屏
+  shortcuts:
+    - keys: prefix + %
+      description: Split the current pane left and right
+  commands:
+    - command: tmux split-window -h
+      preferredCommand: tmux splitw -h
+      description: Create a new pane by splitting horizontally
+      pasteable: true
+      risk: safe
+- id: tmux.pane.split-vertical
+  tool: tmux
+  category: pane
+  title: Split pane top and bottom
+  zh: 上下分割 tmux pane
+  intent:
+    verbs:
+      - split
+      - create
+      - new
+      - 分割
+      - 新建
+    objects:
+      - pane
+      - vertical
+      - 上下
+      - 分屏
+    queries:
+      - tmux split vertical
+      - tmux 上下分屏
+  shortcuts:
+    - keys: prefix + "
+      description: Split the current pane top and bottom
+  commands:
+    - command: tmux split-window -v
+      preferredCommand: tmux splitw -v
+      description: Create a new pane by splitting vertically
+      pasteable: true
+      risk: safe
+- id: tmux.pane.move
+  tool: tmux
+  category: pane
+  title: Move between panes
+  zh: 在 tmux panes 之间移动
+  intent:
+    verbs:
+      - move
+      - select
+      - focus
+      - 切换
+      - 移动
+      - 选择
+    objects:
+      - pane
+      - 分屏
+      - 面板
+    queries:
+      - tmux move pane
+      - tmux switch pane
+      - 切换 tmux pane
+  shortcuts:
+    - keys: prefix + arrow
+      description: Move focus to the pane in that direction
+  commands:
+    - command: tmux select-pane -L
+      preferredCommand: tmux selectp -L
+      description: Select the pane to the left
+      pasteable: true
+      risk: safe
+    - command: tmux select-pane -R
+      preferredCommand: tmux selectp -R
+      description: Select the pane to the right
+      pasteable: true
+      risk: safe
+    - command: tmux select-pane -U
+      preferredCommand: tmux selectp -U
+      description: Select the pane above
+      pasteable: true
+      risk: safe
+    - command: tmux select-pane -D
+      preferredCommand: tmux selectp -D
+      description: Select the pane below
+      pasteable: true
+      risk: safe
+- id: tmux.pane.zoom
+  tool: tmux
+  category: pane
+  title: Toggle pane zoom
+  zh: 放大或还原当前 tmux pane
+  intent:
+    verbs:
+      - zoom
+      - maximize
+      - toggle
+      - 放大
+      - 还原
+    objects:
+      - pane
+      - 分屏
+      - 面板
+    queries:
+      - tmux zoom pane
+      - tmux 放大 pane
+  shortcuts:
+    - keys: prefix + z
+      description: Toggle zoom for the current pane
+  commands:
+    - command: tmux resize-pane -Z
+      preferredCommand: tmux resizep -Z
+      description: Toggle zoom for the active pane
+      pasteable: true
+      risk: safe

@@ -1,0 +1,7 @@
+id: gh
+name: GitHub CLI
+aliases:
+  - github
+  - git-hub
+  - gh
+description: GitHub CLI commands — auth, PR, repo, issue, and more

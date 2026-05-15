@@ -1,0 +1,154 @@
+- id: vim.visual.enter
+  tool: vim
+  category: visual
+  title: Enter visual mode
+  i18n:
+    zh:
+      title: 进入可视模式
+  intent:
+    verbs:
+      - visual
+      - select
+      - highlight
+      - 可视
+      - 选择
+    objects:
+      - visual mode
+      - selection
+      - 可视模式
+      - 选择
+    queries:
+      - vim visual mode
+      - vim 可视模式
+      - vim 进入选择模式
+  shortcuts:
+    - keys: v
+      description: Enter character-wise visual mode
+      i18n:
+        zh:
+          description: 进入字符级可视模式（按字符选择）
+    - keys: V
+      description: Enter line-wise visual mode
+      i18n:
+        zh:
+          description: 进入行级可视模式（按整行选择）
+    - keys: ctrl + v
+      description: Enter block-wise visual mode
+      i18n:
+        zh:
+          description: 进入块级可视模式（矩形选择）
+  commands:
+    - command: v
+      description: Enter character-wise visual mode
+      i18n:
+        zh:
+          description: 进入字符级可视模式
+      pasteable: true
+      risk: safe
+- id: vim.visual.select
+  tool: vim
+  category: visual
+  title: Select and operate in visual mode
+  i18n:
+    zh:
+      title: 可视模式中选择与操作
+  intent:
+    verbs:
+      - select
+      - highlight
+      - visual
+      - 选择
+      - 高亮
+    objects:
+      - text
+      - selection
+      - 文本
+      - 选择
+    queries:
+      - vim visual select
+      - vim 可视模式选择
+      - vim 选择文本
+  shortcuts:
+    - keys: o
+      description: Move cursor to the other end of the selection
+      i18n:
+        zh:
+          description: 将光标跳到选区的另一端
+    - keys: O
+      description: Move cursor to the other end in block mode
+      i18n:
+        zh:
+          description: 在块级选择中跳到另一角
+  commands:
+    - command: v
+      description: Enter visual mode to start selecting
+      i18n:
+        zh:
+          description: 进入可视模式开始选择
+      pasteable: true
+      risk: safe
+- id: vim.visual.operate
+  tool: vim
+  category: visual
+  title: Operate on visual selection
+  i18n:
+    zh:
+      title: 对可视模式选区进行操作
+  intent:
+    verbs:
+      - delete
+      - yank
+      - copy
+      - change
+      - indent
+      - 删除
+      - 复制
+      - 更改
+      - 缩进
+    objects:
+      - selection
+      - 选区
+    queries:
+      - vim visual delete
+      - vim 可视模式删除
+      - vim 可视模式复制
+      - vim 选择后操作
+  shortcuts:
+    - keys: d
+      description: Delete the selected text
+      i18n:
+        zh:
+          description: 删除选中的文本
+    - keys: y
+      description: Yank (copy) the selected text
+      i18n:
+        zh:
+          description: 复制选中的文本
+    - keys: c
+      description: Change the selected text
+      i18n:
+        zh:
+          description: 更改选中的文本
+    - keys: ">"
+      description: Indent the selected lines
+      i18n:
+        zh:
+          description: 将选中行向右缩进
+    - keys: "<"
+      description: Dedent the selected lines
+      i18n:
+        zh:
+          description: 将选中行向左缩进
+    - keys: "~"
+      description: Toggle the case of the selected characters
+      i18n:
+        zh:
+          description: 切换选中字符的大小写
+  commands:
+    - command: d
+      description: Delete the selected text
+      i18n:
+        zh:
+          description: 删除选中的文本
+      pasteable: true
+      risk: destructive

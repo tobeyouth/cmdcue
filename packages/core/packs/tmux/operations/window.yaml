@@ -1,0 +1,286 @@
+- id: tmux.window.close-current
+  tool: tmux
+  category: window
+  title: Close current window
+  zh: 关闭当前 tmux window
+  intent:
+    verbs:
+      - close
+      - kill
+      - delete
+      - remove
+      - 关掉
+      - 关闭
+      - 删除
+    objects:
+      - window
+      - 窗口
+    queries:
+      - tmux close window
+      - tmux 关掉 window
+      - 关闭当前 tmux 窗口
+  shortcuts:
+    - keys: prefix + &
+      description: Prompt before killing the current window
+      i18n:
+        zh:
+          description: 关闭当前 window 前会弹出确认提示
+  commands:
+    - command: tmux kill-window
+      preferredCommand: tmux killw
+      description: Kill the current tmux window
+      i18n:
+        zh:
+          description: 关闭当前 tmux window
+      pasteable: true
+      risk: destructive
+  notes:
+    - This closes every pane inside the current window.
+- id: tmux.window.list
+  tool: tmux
+  category: window
+  title: List windows
+  zh: 列出 tmux windows
+  intent:
+    verbs:
+      - list
+      - show
+      - view
+      - 查看
+      - 列出
+    objects:
+      - window
+      - windows
+      - 窗口
+    queries:
+      - tmux list windows
+      - tmux window
+      - 列出 tmux window
+  shortcuts:
+    - keys: prefix + w
+      description: Open the interactive window tree
+      i18n:
+        zh:
+          description: 打开交互式 window 树状图
+  commands:
+    - command: tmux list-windows
+      preferredCommand: tmux lsw
+      description: List windows in the current session
+      i18n:
+        zh:
+          description: 列出当前 session 中的 windows
+      pasteable: true
+      risk: readonly
+    - command: tmux list-windows -a
+      preferredCommand: tmux lsw -a
+      description: List windows from all sessions
+      i18n:
+        zh:
+          description: 列出所有 sessions 中的 windows
+      pasteable: true
+      risk: readonly
+- id: tmux.window.new
+  tool: tmux
+  category: window
+  title: Create a new window
+  zh: 创建新的 tmux window
+  i18n:
+    zh:
+      title: 创建新的 tmux window
+  intent:
+    verbs:
+      - new
+      - create
+      - open
+      - 新建
+      - 创建
+    objects:
+      - window
+      - 窗口
+    queries:
+      - tmux new window
+      - tmux 新建 window
+  shortcuts:
+    - keys: prefix + c
+      description: Create a new window interactively
+      i18n:
+        zh:
+          description: 交互式创建新的 window
+  commands:
+    - command: tmux new-window
+      preferredCommand: tmux neww
+      description: Create a new window in the current session
+      i18n:
+        zh:
+          description: 在当前 session 中创建新的 window
+      pasteable: true
+      risk: safe
+- id: tmux.window.new-named
+  tool: tmux
+  category: window
+  title: Create a named window
+  zh: 创建命名 tmux window
+  intent:
+    verbs:
+      - new
+      - create
+      - open
+      - name
+      - 新建
+      - 创建
+      - 命名
+    objects:
+      - window
+      - 窗口
+    queries:
+      - tmux new named window
+      - tmux 创建命名 window
+  shortcuts:
+    - keys: prefix + c
+      description: Create a new window, then rename if needed
+      i18n:
+        zh:
+          description: 创建新 window，如有需要再重命名
+  commands:
+    - command: tmux new-window -n <window-name>
+      preferredCommand: tmux neww -n <window-name>
+      description: Create a new window with a name
+      i18n:
+        zh:
+          description: 创建一个带名称的新 window
+      pasteable: true
+      risk: safe
+  notes:
+    - Replace <window-name> before running.
+- id: tmux.window.rename
+  tool: tmux
+  category: window
+  title: Rename current window
+  zh: 重命名当前 tmux window
+  intent:
+    verbs:
+      - rename
+      - name
+      - 重命名
+      - 改名
+    objects:
+      - window
+      - 窗口
+    queries:
+      - tmux rename window
+      - 重命名 tmux window
+  shortcuts:
+    - keys: prefix + ,
+      description: Prompt to rename the current window
+      i18n:
+        zh:
+          description: 弹出提示重命名当前 window
+  commands:
+    - command: tmux rename-window <new-name>
+      preferredCommand: tmux renamew <new-name>
+      description: Rename the current window
+      i18n:
+        zh:
+          description: 重命名当前 window
+      pasteable: true
+      risk: safe
+- id: tmux.window.next
+  tool: tmux
+  category: window
+  title: Go to next window
+  zh: 切到下一个 tmux window
+  intent:
+    verbs:
+      - next
+      - switch
+      - go
+      - 切换
+      - 下一个
+    objects:
+      - window
+      - 窗口
+    queries:
+      - tmux next window
+      - tmux 下一个 window
+  shortcuts:
+    - keys: prefix + n
+      description: Select the next window
+      i18n:
+        zh:
+          description: 切换到下一个 window
+  commands:
+    - command: tmux next-window
+      description: Select the next window in the current session
+      i18n:
+        zh:
+          description: 切换到当前 session 的下一个 window
+      pasteable: true
+      risk: safe
+- id: tmux.window.previous
+  tool: tmux
+  category: window
+  title: Go to previous window
+  zh: 切到上一个 tmux window
+  intent:
+    verbs:
+      - previous
+      - prev
+      - switch
+      - go
+      - 切换
+      - 上一个
+    objects:
+      - window
+      - 窗口
+    queries:
+      - tmux previous window
+      - tmux 上一个 window
+  shortcuts:
+    - keys: prefix + p
+      description: Select the previous window
+      i18n:
+        zh:
+          description: 切换到上一个 window
+  commands:
+    - command: tmux previous-window
+      description: Select the previous window in the current session
+      i18n:
+        zh:
+          description: 切换到当前 session 的上一个 window
+      pasteable: true
+      risk: safe
+- id: tmux.window.select
+  tool: tmux
+  category: window
+  title: Select a window by index
+  zh: 按编号切换 tmux window
+  intent:
+    verbs:
+      - select
+      - switch
+      - go
+      - 切换
+      - 选择
+    objects:
+      - window
+      - index
+      - 窗口
+      - 编号
+    queries:
+      - tmux select window
+      - tmux switch window by index
+  shortcuts:
+    - keys: prefix + 0..9
+      description: Select a window by number
+      i18n:
+        zh:
+          description: 按编号选择 window
+  commands:
+    - command: tmux select-window -t <window-index>
+      preferredCommand: tmux selectw -t <window-index>
+      description: Select a window by target or index
+      i18n:
+        zh:
+          description: 按目标或编号选择 window
+      pasteable: true
+      risk: safe

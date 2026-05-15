@@ -1,0 +1,15 @@
+- id: demo.echo
+  tool: demo
+  category: general
+  title: Echo text
+  intent:
+    verbs: [echo]
+    objects: [text]
+    queries: [demo echo]
+  shortcuts: []
+  commands:
+    - command: echo <text>
+      preferredCommand: echo <text>
+      description: Echo a text argument
+      pasteable: true
+      risk: safe

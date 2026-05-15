@@ -1,0 +1,21 @@
+{
+  "name": "@cmdcue/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "dist/cli.js",
+  "bin": {
+    "cmdcue": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@cmdcue/core": "file:../core"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

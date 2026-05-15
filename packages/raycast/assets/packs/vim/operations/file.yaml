@@ -1,0 +1,203 @@
+- id: vim.file.save
+  tool: vim
+  category: file
+  title: Save file
+  i18n:
+    zh:
+      title: 保存文件
+  intent:
+    verbs:
+      - save
+      - write
+      - 保存
+      - 写入
+    objects:
+      - file
+      - 文件
+    queries:
+      - vim save
+      - vim 保存
+      - vim 写入
+  shortcuts: []
+  commands:
+    - command: ":w"
+      description: Save the current file
+      i18n:
+        zh:
+          description: 保存当前文件
+      pasteable: true
+      risk: safe
+    - command: ":w <file-name>"
+      description: Save the current buffer to a new file
+      i18n:
+        zh:
+          description: 将当前 buffer 另存为新文件
+      pasteable: true
+      risk: safe
+    - command: ":wa"
+      description: Save all open buffers
+      i18n:
+        zh:
+          description: 保存所有打开的 buffer
+      pasteable: true
+      risk: safe
+- id: vim.file.open
+  tool: vim
+  category: file
+  title: Open a file
+  i18n:
+    zh:
+      title: 打开文件
+  intent:
+    verbs:
+      - open
+      - find
+      - edit
+      - 打开
+      - 读取
+    objects:
+      - file
+      - 文件
+    queries:
+      - vim open file
+      - vim 打开文件
+      - vim 读取文件
+  shortcuts: []
+  commands:
+    - command: ":e <file-name>"
+      description: Open a file in the current buffer
+      i18n:
+        zh:
+          description: 在当前 buffer 中打开文件
+      pasteable: true
+      risk: safe
+    - command: ":e!"
+      description: Reload the current file and discard changes
+      i18n:
+        zh:
+          description: 重新加载当前文件，放弃所有修改
+      pasteable: true
+      risk: destructive
+    - command: ":find <filename>"
+      description: Open a file from the path list
+      i18n:
+        zh:
+          description: 从路径列表中查找并打开文件
+      pasteable: true
+      risk: safe
+- id: vim.file.buffer
+  tool: vim
+  category: file
+  title: Manage buffers
+  i18n:
+    zh:
+      title: 管理 buffer
+  intent:
+    verbs:
+      - buffer
+      - list
+      - switch
+      - buffer
+      - 列表
+      - 切换
+    objects:
+      - buffer
+      - buffers
+      - buffer
+    queries:
+      - vim buffer list
+      - vim buffer switch
+      - vim 切换 buffer
+  shortcuts: []
+  commands:
+    - command: ":ls"
+      description: List all open buffers
+      i18n:
+        zh:
+          description: 列出所有打开的 buffer
+      pasteable: true
+      risk: readonly
+    - command: ":b <buffer-number-or-name>"
+      description: Switch to a buffer by number or name
+      i18n:
+        zh:
+          description: 按编号或名称切换到指定 buffer
+      pasteable: true
+      risk: safe
+    - command: ":bd"
+      description: Delete (close) the current buffer
+      i18n:
+        zh:
+          description: 删除（关闭）当前 buffer
+      pasteable: true
+      risk: destructive
+    - command: ":bn"
+      description: Switch to the next buffer
+      i18n:
+        zh:
+          description: 切换到下一个 buffer
+      pasteable: true
+      risk: safe
+    - command: ":bp"
+      description: Switch to the previous buffer
+      i18n:
+        zh:
+          description: 切换到上一个 buffer
+      pasteable: true
+      risk: safe
+- id: vim.file.split
+  tool: vim
+  category: file
+  title: Split window
+  i18n:
+    zh:
+      title: 分割窗口
+  intent:
+    verbs:
+      - split
+      - vsplit
+      - horizontal
+      - vertical
+      - 分割
+      - 分屏
+      - 窗口
+    objects:
+      - window
+      - file
+      - 窗口
+      - 文件
+    queries:
+      - vim split window
+      - vim 分割窗口
+      - vim 水平分割
+      - vim 垂直分割
+  shortcuts: []
+  commands:
+    - command: ":sp"
+      description: Split the window horizontally
+      i18n:
+        zh:
+          description: 水平分割窗口
+      pasteable: true
+      risk: safe
+    - command: ":sp <file-name>"
+      description: Split horizontally and open a file
+      i18n:
+        zh:
+          description: 水平分割并打开文件
+      pasteable: true
+      risk: safe
+    - command: ":vsp"
+      description: Split the window vertically
+      i18n:
+        zh:
+          description: 垂直分割窗口
+      pasteable: true
+      risk: safe
+    - command: ":vsp <file-name>"
+      description: Split vertically and open a file
+      i18n:
+        zh:
+          description: 垂直分割并打开文件
+      pasteable: true
+      risk: safe

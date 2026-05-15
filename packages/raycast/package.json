@@ -1,0 +1,44 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "cmdcue",
+  "title": "CmdCue",
+  "description": "Search semantic command and shortcut cues for developer tools.",
+  "icon": "command-icon.png",
+  "author": "your-raycast-username",
+  "license": "MIT",
+  "version": "0.1.0",
+  "commands": [
+    {
+      "name": "search-operations",
+      "title": "Search Operations",
+      "description": "Search local developer operation packs",
+      "mode": "view"
+    },
+    {
+      "name": "ask-operations",
+      "title": "Ask Operations",
+      "description": "Ask a question grounded in local operation packs",
+      "mode": "view"
+    },
+    {
+      "name": "settings",
+      "title": "Settings",
+      "description": "Configure CmdCue language and optional AI provider",
+      "mode": "view"
+    }
+  ],
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "lint": "ray lint",
+    "sync-packs": "node ../../scripts/sync-packs.cjs"
+  },
+  "dependencies": {
+    "@cmdcue/core": "file:../core",
+    "@raycast/api": "^1.93.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

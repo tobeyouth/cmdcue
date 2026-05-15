@@ -1,0 +1,93 @@
+- id: vim.registers.use
+  tool: vim
+  category: registers
+  title: Use registers
+  i18n:
+    zh:
+      title: 使用寄存器
+  intent:
+    verbs:
+      - register
+      - paste
+      - yank
+      - 寄存器
+      - 粘贴
+    objects:
+      - register
+      - registers
+      - 寄存器
+    queries:
+      - vim register
+      - vim 寄存器
+      - vim 使用寄存器
+      - vim 粘贴特定寄存器
+  shortcuts:
+    - keys: '"<register>y'
+      description: Yank into a specific register (e.g. "ay to yank into register a)
+      i18n:
+        zh:
+          description: yank 到指定寄存器（例如 "ay 复制到寄存器 a）
+    - keys: '"<register>p'
+      description: Paste from a specific register
+      i18n:
+        zh:
+          description: 从指定寄存器粘贴
+    - keys: ":reg"
+      description: Display all register contents
+      i18n:
+        zh:
+          description: 显示所有寄存器内容
+  commands:
+    - command: ":reg"
+      description: Show all registers and their contents
+      i18n:
+        zh:
+          description: 显示所有寄存器及其内容
+      pasteable: true
+      risk: readonly
+- id: vim.registers.special
+  tool: vim
+  category: registers
+  title: Special registers
+  i18n:
+    zh:
+      title: 特殊寄存器
+  intent:
+    verbs:
+      - register
+      - clipboard
+      - 系统
+      - 系统剪贴板
+    objects:
+      - register
+      - clipboard
+      - 寄存器
+      - 剪贴板
+    queries:
+      - vim clipboard
+      - vim 系统剪贴板
+      - vim "+ register
+  shortcuts:
+    - keys: '"+y'
+      description: Yank the selected text to the system clipboard
+      i18n:
+        zh:
+          description: 复制选中文本到系统剪贴板
+    - keys: '"+p'
+      description: Paste from the system clipboard
+      i18n:
+        zh:
+          description: 从系统剪贴板粘贴
+    - keys: '"*p'
+      description: Paste from the X11 selection (middle-click)
+      i18n:
+        zh:
+          description: 从 X11 选择区粘贴（鼠标中键）
+  commands:
+    - command: '"+y'
+      description: Yank to the system clipboard register
+      i18n:
+        zh:
+          description: 复制到系统剪贴板寄存器
+      pasteable: true
+      risk: safe

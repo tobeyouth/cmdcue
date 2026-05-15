@@ -1,0 +1,7 @@
+id: vim
+name: Vim
+aliases:
+  - vi
+  - editor
+  - 编辑器
+description: Vim motions, editing, and quit operations

@@ -1,0 +1,403 @@
+- id: tmux.layout.select
+  tool: tmux
+  category: layout
+  title: Select a layout preset
+  i18n:
+    zh:
+      title: 切换 tmux 布局
+  intent:
+    verbs:
+      - select
+      - switch
+      - 切换
+      - 选择
+    objects:
+      - layout
+      - 布局
+    queries:
+      - tmux select layout
+      - tmux 切换布局
+      - tmux 布局
+  shortcuts:
+    - keys: prefix + M-1
+      description: Select the even-horizontal layout
+      i18n:
+        zh:
+          description: 选择 even-horizontal 布局（左右平铺）
+    - keys: prefix + M-2
+      description: Select the even-vertical layout
+      i18n:
+        zh:
+          description: 选择 even-vertical 布局（上下平铺）
+    - keys: prefix + M-3
+      description: Select the main-horizontal layout
+      i18n:
+        zh:
+          description: 选择 main-horizontal 布局（主 pane 在上）
+    - keys: prefix + M-4
+      description: Select the main-vertical layout
+      i18n:
+        zh:
+          description: 选择 main-vertical 布局（主 pane 在左）
+    - keys: prefix + M-5
+      description: Select the tiled layout
+      i18n:
+        zh:
+          description: 选择 tiled 布局（平铺）
+  commands:
+    - command: tmux select-layout -t <pane-id> <layout-name>
+      preferredCommand: tmux selectl <layout-name>
+      description: Apply a named layout preset to the current window
+      i18n:
+        zh:
+          description: 为当前 window 应用指定的布局预设
+      pasteable: true
+      risk: safe
+  notes:
+    - "Available layouts: even-horizontal, even-vertical, main-horizontal, main-vertical, tiled, browser, horizontal, vertical."
+- id: tmux.layout.next
+  tool: tmux
+  category: layout
+  title: Cycle to next layout
+  i18n:
+    zh:
+      title: 切换到下一个 tmux 布局
+  intent:
+    verbs:
+      - next
+      - cycle
+      - 下一个
+      - 循环
+    objects:
+      - layout
+      - 布局
+    queries:
+      - tmux next layout
+      - tmux 下一个布局
+  shortcuts:
+    - keys: prefix + Space
+      description: Cycle to the next layout
+      i18n:
+        zh:
+          description: 循环切换到下一个布局
+  commands:
+    - command: tmux next-layout
+      preferredCommand: tmux nextl
+      description: Switch to the next layout in the current window
+      i18n:
+        zh:
+          description: 切换到当前 window 的下一个布局
+      pasteable: true
+      risk: safe
+- id: tmux.layout.previous
+  tool: tmux
+  category: layout
+  title: Cycle to previous layout
+  i18n:
+    zh:
+      title: 切换到上一个 tmux 布局
+  intent:
+    verbs:
+      - previous
+      - prev
+      - 上一个
+    objects:
+      - layout
+      - 布局
+    queries:
+      - tmux previous layout
+      - tmux 上一个布局
+  shortcuts: []
+  commands:
+    - command: tmux previous-layout
+      preferredCommand: tmux prevl
+      description: Switch to the previous layout in the current window
+      i18n:
+        zh:
+          description: 切换到当前 window 的上一个布局
+      pasteable: true
+      risk: safe
+- id: tmux.layout.rotate
+  tool: tmux
+  category: layout
+  title: Rotate window panes
+  i18n:
+    zh:
+      title: 旋转 tmux window 中的 panes
+  intent:
+    verbs:
+      - rotate
+      - swap
+      - 旋转
+      - 交换
+    objects:
+      - pane
+      - panes
+      - window
+      - 分屏
+      - 窗口
+    queries:
+      - tmux rotate window
+      - tmux rotate panes
+      - tmux 旋转 panes
+  shortcuts:
+    - keys: prefix + M-o
+      description: Rotate panes in the current window clockwise
+      i18n:
+        zh:
+          description: 顺时针旋转当前 window 中的 panes
+  commands:
+    - command: tmux rotate-window
+      preferredCommand: tmux rotatew
+      description: Rotate panes in the current window
+      i18n:
+        zh:
+          description: 旋转当前 window 中的 panes
+      pasteable: true
+      risk: safe
+    - command: tmux rotate-window -D
+      description: Rotate panes counter-clockwise
+      i18n:
+        zh:
+          description: 逆时针旋转 panes
+      pasteable: true
+      risk: safe
+- id: tmux.window.swap
+  tool: tmux
+  category: layout
+  title: Swap windows
+  i18n:
+    zh:
+      title: 交换两个 tmux window 的位置
+  intent:
+    verbs:
+      - swap
+      - exchange
+      - move
+      - 交换
+      - 调换
+    objects:
+      - window
+      - windows
+      - 窗口
+    queries:
+      - tmux swap window
+      - tmux 交换 window
+      - 调换 tmux window 位置
+  shortcuts: []
+  commands:
+    - command: tmux swap-window -s <src-window> -t <dst-window>
+      description: Swap src-window with dst-window
+      i18n:
+        zh:
+          description: 将源 window 与目标 window 交换位置
+      pasteable: true
+      risk: safe
+    - command: tmux swap-window -t <window-index>
+      description: Swap the current window with the target window index
+      i18n:
+        zh:
+          description: 将当前 window 与指定编号的 window 交换位置
+      pasteable: true
+      risk: safe
+    - command: tmux swap-window -d -t <window-index>
+      description: Swap the current window with the target and keep it at destination
+      i18n:
+        zh:
+          description: 交换后保持目标 window 在当前位置
+      pasteable: true
+      risk: safe
+- id: tmux.pane.swap
+  tool: tmux
+  category: layout
+  title: Swap panes
+  i18n:
+    zh:
+      title: 交换两个 tmux pane 的位置
+  intent:
+    verbs:
+      - swap
+      - exchange
+      - 交换
+    objects:
+      - pane
+      - panes
+      - 分屏
+    queries:
+      - tmux swap pane
+      - tmux 交换 pane
+      - 交换 tmux pane
+  shortcuts: []
+  commands:
+    - command: tmux swap-pane -s <src-pane> -t <dst-pane>
+      description: Swap src-pane with dst-pane
+      i18n:
+        zh:
+          description: 将源 pane 与目标 pane 交换位置
+      pasteable: true
+      risk: safe
+    - command: tmux swap-pane -t <pane-id>
+      description: Swap the current pane with the target pane
+      i18n:
+        zh:
+          description: 将当前 pane 与目标 pane 交换位置
+      pasteable: true
+      risk: safe
+- id: tmux.pane.break-out
+  tool: tmux
+  category: layout
+  title: Break pane into a new window
+  i18n:
+    zh:
+      title: 将当前 pane 分离成独立 window
+  intent:
+    verbs:
+      - break
+      - split
+      - detach
+      - 分离
+      - 拆出
+    objects:
+      - pane
+      - 分屏
+      - window
+      - 窗口
+    queries:
+      - tmux break pane
+      - tmux pane to window
+      - tmux 分离 pane
+      - 将 pane 拆成 window
+  shortcuts:
+    - keys: prefix + !
+      description: Break the current pane into a new window
+      i18n:
+        zh:
+          description: 将当前 pane 拆分为独立的 window
+  commands:
+    - command: tmux break-pane
+      preferredCommand: tmux breakp
+      description: Break the active pane into a separate window
+      i18n:
+        zh:
+          description: 将当前 pane 分离成一个新的 window
+      pasteable: true
+      risk: safe
+- id: tmux.pane.join
+  tool: tmux
+  category: layout
+  title: Join pane into a window
+  i18n:
+    zh:
+      title: 将 pane 合并到另一个 window
+  intent:
+    verbs:
+      - join
+      - merge
+      - combine
+      - 合并
+      - 加入
+    objects:
+      - pane
+      - 分屏
+      - window
+      - 窗口
+    queries:
+      - tmux join pane
+      - tmux merge pane
+      - tmux pane 合并到 window
+      - 将 pane 合并到 window
+  shortcuts: []
+  commands:
+    - command: tmux join-pane -s <src-pane> -t <dst-window>
+      description: Move the source pane into the target window as a new pane
+      i18n:
+        zh:
+          description: 将源 pane 移动到目标 window 中作为一个新 pane
+      pasteable: true
+      risk: safe
+    - command: tmux join-pane -t <dst-pane>
+      description: Move the current pane into the target window
+      i18n:
+        zh:
+          description: 将当前 pane 移动到目标 window 中
+      pasteable: true
+      risk: safe
+  notes:
+    - Use -h for horizontal split and -v for vertical split when joining.
+- id: tmux.window.link
+  tool: tmux
+  category: layout
+  title: Link window to another session
+  i18n:
+    zh:
+      title: 将 window 链接到另一个 session
+  intent:
+    verbs:
+      - link
+      - attach
+      - move
+      - 链接
+      - 移动
+    objects:
+      - window
+      - 窗口
+      - session
+      - 会话
+    queries:
+      - tmux link window
+      - tmux window to session
+      - tmux 链接 window
+  shortcuts: []
+  commands:
+    - command: tmux link-window -s <src-window> -t <dst-session>
+      description: Link the source window into the target session
+      i18n:
+        zh:
+          description: 将源 window 链接到目标 session
+      pasteable: true
+      risk: safe
+    - command: tmux link-window -k -s <src-window> -t <dst-session>
+      description: Link window and kill the source if it becomes empty
+      i18n:
+        zh:
+          description: 链接 window，若源 window 变空则删除它
+      pasteable: true
+      risk: safe
+- id: tmux.window.unlink
+  tool: tmux
+  category: layout
+  title: Unlink window from session
+  i18n:
+    zh:
+      title: 将 window 从 session 解除链接
+  intent:
+    verbs:
+      - unlink
+      - detach
+      - remove
+      - 解除链接
+      - 移除
+    objects:
+      - window
+      - 窗口
+      - session
+      - 会话
+    queries:
+      - tmux unlink window
+      - tmux 解除链接 window
+  shortcuts: []
+  commands:
+    - command: tmux unlink-window
+      description: Unlink the current window from its session
+      i18n:
+        zh:
+          description: 将当前 window 从其所属 session 解除链接
+      pasteable: true
+      risk: safe
+    - command: tmux unlink-window -k
+      description: Unlink and kill the window if it becomes empty
+      i18n:
+        zh:
+          description: 解除链接，若 window 变空则删除它
+      pasteable: true
+      risk: safe

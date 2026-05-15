@@ -1,0 +1,219 @@
+- id: tmux.buffer.list
+  tool: tmux
+  category: buffer
+  title: List paste buffers
+  i18n:
+    zh:
+      title: 列出 tmux paste buffers
+  intent:
+    verbs:
+      - list
+      - show
+      - view
+      - 查看
+      - 列出
+    objects:
+      - buffer
+      - buffers
+      - paste buffer
+      - 缓冲区
+    queries:
+      - tmux list buffers
+      - tmux buffer
+      - 查看 tmux buffer
+      - 列出 tmux 缓冲区
+  shortcuts:
+    - keys: prefix + #
+      description: List all paste buffers
+  commands:
+    - command: tmux list-buffers
+      preferredCommand: tmux lsb
+      description: List all paste buffers
+      pasteable: true
+      risk: readonly
+- id: tmux.buffer.show
+  tool: tmux
+  category: buffer
+  title: Show buffer contents
+  i18n:
+    zh:
+      title: 查看 tmux buffer 内容
+  intent:
+    verbs:
+      - show
+      - view
+      - display
+      - cat
+      - 查看
+      - 显示
+    objects:
+      - buffer
+      - buffers
+      - 缓冲区
+    queries:
+      - tmux show buffer
+      - tmux buffer content
+      - 查看 buffer 内容
+  shortcuts: []
+  commands:
+    - command: tmux show-buffer -b <buffer-index>
+      preferredCommand: tmux showb -b <buffer-index>
+      description: Show the contents of a specific paste buffer
+      i18n:
+        zh:
+          description: 显示指定 paste buffer 的内容
+      pasteable: true
+      risk: readonly
+  notes:
+    - Replace <buffer-index> with the buffer number shown in list-buffers output.
+- id: tmux.buffer.save
+  tool: tmux
+  category: buffer
+  title: Save buffer to a file
+  i18n:
+    zh:
+      title: 将 tmux buffer 保存到文件
+  intent:
+    verbs:
+      - save
+      - write
+      - export
+      - 保存
+      - 导出
+    objects:
+      - buffer
+      - file
+      - 缓冲区
+      - 文件
+    queries:
+      - tmux save buffer
+      - tmux buffer to file
+      - buffer 保存到文件
+  shortcuts: []
+  commands:
+    - command: tmux save-buffer -b <buffer-index> <file-path>
+      preferredCommand: tmux saveb -b <buffer-index> <file-path>
+      description: Save a paste buffer's contents to a file
+      i18n:
+        zh:
+          description: 将 buffer 内容保存到指定文件
+      pasteable: true
+      risk: safe
+  notes:
+    - Replace <buffer-index> and <file-path> before running.
+- id: tmux.buffer.load
+  tool: tmux
+  category: buffer
+  title: Load a file into a buffer
+  i18n:
+    zh:
+      title: 从文件加载内容到 tmux buffer
+  intent:
+    verbs:
+      - load
+      - read
+      - import
+      - 加载
+      - 读取
+    objects:
+      - buffer
+      - file
+      - 缓冲区
+      - 文件
+    queries:
+      - tmux load buffer
+      - tmux buffer from file
+      - 从文件加载 buffer
+  shortcuts: []
+  commands:
+    - command: tmux load-buffer -b <buffer-name> <file-path>
+      preferredCommand: tmux loadb -b <buffer-name> <file-path>
+      description: Load file contents into a new paste buffer
+      i18n:
+        zh:
+          description: 将文件内容加载到新的 paste buffer
+      pasteable: true
+      risk: safe
+  notes:
+    - Replace <buffer-name> (optional) and <file-path> before running.
+- id: tmux.buffer.paste
+  tool: tmux
+  category: buffer
+  title: Paste a buffer into a pane
+  i18n:
+    zh:
+      title: 将 tmux buffer 内容粘贴到 pane
+  intent:
+    verbs:
+      - paste
+      - insert
+      - 粘贴
+      - 插入
+    objects:
+      - buffer
+      - 缓冲区
+    queries:
+      - tmux paste buffer
+      - tmux 粘贴 buffer
+      - 粘贴 tmux 缓冲区
+  shortcuts:
+    - keys: prefix + ]
+      description: Paste the most recent buffer
+  commands:
+    - command: tmux paste-buffer
+      preferredCommand: tmux pasteb
+      description: Paste the most recent buffer into the current pane
+      i18n:
+        zh:
+          description: 将最近的 buffer 粘贴到当前 pane
+      pasteable: true
+      risk: safe
+    - command: tmux paste-buffer -b <buffer-name>
+      preferredCommand: tmux pasteb -b <buffer-name>
+      description: Paste a specific buffer by name into the current pane
+      i18n:
+        zh:
+          description: 将指定名称的 buffer 粘贴到当前 pane
+      pasteable: true
+      risk: safe
+    - command: tmux paste-buffer -d
+      preferredCommand: tmux pasteb -d
+      description: Paste the most recent buffer and delete it afterward
+      i18n:
+        zh:
+          description: 粘贴最近的 buffer 并在粘贴后删除它
+      pasteable: true
+      risk: safe
+- id: tmux.buffer.delete
+  tool: tmux
+  category: buffer
+  title: Delete a paste buffer
+  i18n:
+    zh:
+      title: 删除 tmux paste buffer
+  intent:
+    verbs:
+      - delete
+      - remove
+      - kill
+      - 删除
+      - 移除
+    objects:
+      - buffer
+      - 缓冲区
+    queries:
+      - tmux delete buffer
+      - tmux 删除 buffer
+      - 删除 tmux 缓冲区
+  shortcuts: []
+  commands:
+    - command: tmux delete-buffer -b <buffer-name>
+      preferredCommand: tmux deleteb -b <buffer-name>
+      description: Delete a specific paste buffer
+      i18n:
+        zh:
+          description: 删除指定的 paste buffer
+      pasteable: true
+      risk: destructive
+  notes:
+    - Replace <buffer-name> before running. This only deletes the buffer, not its content from the terminal.

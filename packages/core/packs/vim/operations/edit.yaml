@@ -1,0 +1,312 @@
+- id: vim.edit.delete
+  tool: vim
+  category: edit
+  title: Delete text
+  i18n:
+    zh:
+      title: 删除文本
+  intent:
+    verbs:
+      - delete
+      - remove
+      - cut
+      - 删除
+      - 剪切
+      - 移除
+    objects:
+      - character
+      - word
+      - line
+      - 字符
+      - 单词
+      - 行
+    queries:
+      - vim delete
+      - vim 删除
+      - vim 删除字符
+      - vim 删除行
+  shortcuts:
+    - keys: x
+      description: Delete the character under the cursor
+      i18n:
+        zh:
+          description: 删除光标下的字符
+    - keys: dd
+      description: Delete the entire current line
+      i18n:
+        zh:
+          description: 删除整行
+    - keys: dw
+      description: Delete from cursor to the end of the word
+      i18n:
+        zh:
+          description: 删除从光标到单词结尾
+    - keys: d$
+      description: Delete from cursor to the end of the line
+      i18n:
+        zh:
+          description: 删除从光标到行尾
+    - keys: d0
+      description: Delete from cursor to the beginning of the line
+      i18n:
+        zh:
+          description: 删除从光标到行首
+    - keys: <number>dd
+      description: Delete N lines starting from the current line
+      i18n:
+        zh:
+          description: 从当前行开始删除 N 行
+  commands:
+    - command: x
+      description: Delete the character under the cursor
+      i18n:
+        zh:
+          description: 删除光标下的字符
+      pasteable: true
+      risk: destructive
+    - command: dd
+      description: Delete the current line
+      i18n:
+        zh:
+          description: 删除当前行
+      pasteable: true
+      risk: destructive
+- id: vim.edit.yank
+  tool: vim
+  category: edit
+  title: Copy text
+  i18n:
+    zh:
+      title: 复制文本
+  intent:
+    verbs:
+      - copy
+      - yank
+      - 复制
+    objects:
+      - character
+      - word
+      - line
+      - 字符
+      - 单词
+      - 行
+    queries:
+      - vim copy
+      - vim yank
+      - vim 复制
+      - vim 复制文本
+      - vim 复制行
+  shortcuts:
+    - keys: yy
+      description: Yank (copy) the current line
+      i18n:
+        zh:
+          description: 复制当前行
+    - keys: yw
+      description: Yank from cursor to the end of the word
+      i18n:
+        zh:
+          description: 复制从光标到单词结尾
+    - keys: y$
+      description: Yank from cursor to the end of the line
+      i18n:
+        zh:
+          description: 复制从光标到行尾
+    - keys: y0
+      description: Yank from cursor to the beginning of the line
+      i18n:
+        zh:
+          description: 复制从光标到行首
+    - keys: <number>yy
+      description: Yank N lines starting from the current line
+      i18n:
+        zh:
+          description: 从当前行开始复制 N 行
+  commands:
+    - command: yy
+      description: Yank (copy) the current line
+      i18n:
+        zh:
+          description: 复制当前行
+      pasteable: true
+      risk: safe
+- id: vim.edit.paste
+  tool: vim
+  category: edit
+  title: Paste text
+  i18n:
+    zh:
+      title: 粘贴文本
+  intent:
+    verbs:
+      - paste
+      - put
+      - 粘贴
+    objects:
+      - text
+      - line
+      - 文本
+      - 行
+    queries:
+      - vim paste
+      - vim 粘贴
+      - vim 粘贴文本
+  shortcuts:
+    - keys: p
+      description: Paste after the cursor
+      i18n:
+        zh:
+          description: 在光标后粘贴
+    - keys: P
+      description: Paste before the cursor
+      i18n:
+        zh:
+          description: 在光标前粘贴
+  commands:
+    - command: p
+      description: Paste after the cursor
+      i18n:
+        zh:
+          description: 在光标后粘贴
+      pasteable: true
+      risk: safe
+- id: vim.edit.undo
+  tool: vim
+  category: edit
+  title: Undo and redo
+  i18n:
+    zh:
+      title: 撤销与重做
+  intent:
+    verbs:
+      - undo
+      - redo
+      - revert
+      - 撤销
+      - 重做
+      - 回退
+    objects:
+      - change
+      - 操作
+      - 改动
+    queries:
+      - vim undo
+      - vim redo
+      - vim 撤销
+      - vim 重做
+  shortcuts:
+    - keys: u
+      description: Undo the last change
+      i18n:
+        zh:
+          description: 撤销上一次操作
+    - keys: ctrl + r
+      description: Redo the last undone change
+      i18n:
+        zh:
+          description: 重做上次撤销的操作
+    - keys: U
+      description: Undo all changes on the current line
+      i18n:
+        zh:
+          description: 撤销当前行的所有改动
+  commands:
+    - command: u
+      description: Undo the last change
+      i18n:
+        zh:
+          description: 撤销上一次操作
+      pasteable: true
+      risk: safe
+- id: vim.edit.change
+  tool: vim
+  category: edit
+  title: Change text
+  i18n:
+    zh:
+      title: 更改文本
+  intent:
+    verbs:
+      - change
+      - replace
+      - modify
+      - 更改
+      - 替换
+      - 修改
+    objects:
+      - word
+      - line
+      - character
+      - 单词
+      - 行
+      - 字符
+    queries:
+      - vim change
+      - vim 更改
+      - vim 替换
+      - vim cw
+  shortcuts:
+    - keys: cw
+      description: Change from cursor to the end of the word
+      i18n:
+        zh:
+          description: 更改从光标到单词结尾的内容（删除并进入插入模式）
+    - keys: cc
+      description: Change the entire current line
+      i18n:
+        zh:
+          description: 更改整行（删除整行并进入插入模式）
+    - keys: c$
+      description: Change from cursor to the end of the line
+      i18n:
+        zh:
+          description: 更改从光标到行尾的内容
+    - keys: C
+      description: Change from cursor to the end of the line (same as c$)
+      i18n:
+        zh:
+          description: 更改从光标到行尾的内容
+  commands:
+    - command: cw
+      description: Change word from cursor position
+      i18n:
+        zh:
+          description: 从光标处开始更改单词
+      pasteable: true
+      risk: safe
+- id: vim.edit.join
+  tool: vim
+  category: edit
+  title: Join lines
+  i18n:
+    zh:
+      title: 合并行
+  intent:
+    verbs:
+      - join
+      - merge
+      - combine
+      - 合并
+      - 连接
+    objects:
+      - line
+      - lines
+      - 行
+    queries:
+      - vim join lines
+      - vim 合并行
+      - vim 上下行合并
+  shortcuts:
+    - keys: J
+      description: Join the current line with the line below
+      i18n:
+        zh:
+          description: 将当前行与下一行合并
+  commands:
+    - command: J
+      description: Join current line with the line below
+      i18n:
+        zh:
+          description: 将当前行与下一行合并
+      pasteable: true
+      risk: safe

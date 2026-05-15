@@ -1,0 +1,167 @@
+- id: vim.insert.enter
+  tool: vim
+  category: insert
+  title: Enter insert mode
+  i18n:
+    zh:
+      title: 进入插入模式
+  intent:
+    verbs:
+      - insert
+      - type
+      - edit
+      - enter
+      - 进入
+      - 输入
+      - 编辑
+    objects:
+      - insert mode
+      - 插入模式
+      - mode
+      - 模式
+    queries:
+      - vim enter insert mode
+      - vim 进入插入模式
+      - vim 如何输入
+      - vim 怎么打字
+  shortcuts:
+    - keys: i
+      description: Enter insert mode at the cursor position
+      i18n:
+        zh:
+          description: 在当前光标位置进入插入模式
+    - keys: I
+      description: Enter insert mode at the first non-blank character of the line
+      i18n:
+        zh:
+          description: 在行首（非空白字符）进入插入模式
+    - keys: a
+      description: Enter insert mode after the cursor
+      i18n:
+        zh:
+          description: 在光标后进入插入模式
+    - keys: A
+      description: Enter insert mode at the end of the line
+      i18n:
+        zh:
+          description: 在行尾进入插入模式
+    - keys: o
+      description: Open a new line below the current line and enter insert mode
+      i18n:
+        zh:
+          description: 在当前行下方新建一行并进入插入模式
+    - keys: O
+      description: Open a new line above the current line and enter insert mode
+      i18n:
+        zh:
+          description: 在当前行上方新建一行并进入插入模式
+    - keys: s
+      description: Delete the character under the cursor and enter insert mode
+      i18n:
+        zh:
+          description: 删除光标所在字符并进入插入模式
+    - keys: S
+      description: Delete the current line and enter insert mode
+      i18n:
+        zh:
+          description: 删除当前行并进入插入模式
+  commands:
+    - command: i
+      description: Enter insert mode at cursor
+      i18n:
+        zh:
+          description: 在光标处进入插入模式
+      pasteable: true
+      risk: safe
+- id: vim.insert.replace
+  tool: vim
+  category: insert
+  title: Replace characters
+  i18n:
+    zh:
+      title: 替换字符
+  intent:
+    verbs:
+      - replace
+      - overwrite
+      - substitute
+      - 替换
+      - 覆盖
+    objects:
+      - character
+      - 字符
+    queries:
+      - vim replace character
+      - vim 替换字符
+      - vim overwrite
+  shortcuts:
+    - keys: r
+      description: Replace the character under the cursor (one shot)
+      i18n:
+        zh:
+          description: 替换光标处的单个字符（替换后自动返回 normal 模式）
+    - keys: R
+      description: Enter replace mode (overwrite until Esc)
+      i18n:
+        zh:
+          description: 进入替换模式，持续替换直到按 Esc
+  commands:
+    - command: r
+      description: Replace one character under the cursor
+      i18n:
+        zh:
+          description: 替换光标处的单个字符
+      pasteable: true
+      risk: safe
+- id: vim.insert.delete
+  tool: vim
+  category: insert
+  title: Delete in insert mode
+  i18n:
+    zh:
+      title: 插入模式下删除
+  intent:
+    verbs:
+      - delete
+      - backspace
+      - remove
+      - 删除
+      - 退格
+    objects:
+      - character
+      - word
+      - 字符
+      - 单词
+    queries:
+      - vim delete character insert mode
+      - vim 插入模式删除
+      - vim backspace
+  shortcuts:
+    - keys: Backspace
+      description: Delete the character before the cursor
+      i18n:
+        zh:
+          description: 删除光标前的一个字符
+    - keys: ctrl + h
+      description: Delete the character before the cursor (in insert mode)
+      i18n:
+        zh:
+          description: 删除光标前的一个字符
+    - keys: ctrl + w
+      description: Delete the word before the cursor
+      i18n:
+        zh:
+          description: 删除光标前的一个单词
+    - keys: ctrl + u
+      description: Delete from cursor to the beginning of the line
+      i18n:
+        zh:
+          description: 删除从光标到行首的内容
+  commands:
+    - command: ctrl+h
+      description: Delete one character before the cursor
+      i18n:
+        zh:
+          description: 删除光标前的一个字符
+      pasteable: true
+      risk: safe

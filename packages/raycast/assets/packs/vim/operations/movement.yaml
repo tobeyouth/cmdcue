@@ -1,0 +1,271 @@
+- id: vim.movement.word-forward
+  tool: vim
+  category: movement
+  title: Move forward by word
+  i18n:
+    zh:
+      title: 按单词向前移动
+  intent:
+    verbs:
+      - move
+      - jump
+      - forward
+      - 移动
+      - 跳转
+      - 前进
+    objects:
+      - word
+      - 单词
+    queries:
+      - vim move word forward
+      - vim 跳到下一个单词
+      - vim 前进到下个单词
+  shortcuts:
+    - keys: w
+      description: Jump to the start of the next word
+      i18n:
+        zh:
+          description: 跳到下一个单词的开头
+    - keys: e
+      description: Jump to the end of the current or next word
+      i18n:
+        zh:
+          description: 跳到当前或下一个单词的结尾
+  commands:
+    - command: w
+      description: Move forward to the start of the next word
+      i18n:
+        zh:
+          description: 跳到下一个单词的开头
+      pasteable: true
+      risk: safe
+- id: vim.movement.word-backward
+  tool: vim
+  category: movement
+  title: Move backward by word
+  i18n:
+    zh:
+      title: 按单词向后移动
+  intent:
+    verbs:
+      - move
+      - jump
+      - backward
+      - back
+      - 移动
+      - 后退
+    objects:
+      - word
+      - 单词
+    queries:
+      - vim move word backward
+      - vim 上一个单词
+      - vim 后退到上个单词
+  shortcuts:
+    - keys: b
+      description: Jump to the start of the previous word
+      i18n:
+        zh:
+          description: 跳到上一个单词的开头
+    - keys: ge
+      description: Jump to the end of the previous word
+      i18n:
+        zh:
+          description: 跳到上一个单词的结尾
+  commands:
+    - command: b
+      description: Move backward to the start of the previous word
+      i18n:
+        zh:
+          description: 跳到上一个单词的开头
+      pasteable: true
+      risk: safe
+- id: vim.movement.line
+  tool: vim
+  category: movement
+  title: Move by line
+  i18n:
+    zh:
+      title: 按行移动
+  intent:
+    verbs:
+      - move
+      - jump
+      - line
+      - go
+      - 移动
+      - 跳转
+      - 行
+    objects:
+      - line
+      - 行
+      - character
+      - 字符
+    queries:
+      - vim move line
+      - vim 跳到行首
+      - vim 跳到行尾
+      - vim 上下移动
+  shortcuts:
+    - keys: "0"
+      description: Jump to the first character of the line
+      i18n:
+        zh:
+          description: 跳到行首（第一个字符）
+    - keys: ^
+      description: Jump to the first non-blank character of the line
+      i18n:
+        zh:
+          description: 跳到行首（非空白字符）
+    - keys: $
+      description: Jump to the end of the line
+      i18n:
+        zh:
+          description: 跳到行尾
+    - keys: gg
+      description: Jump to the first line of the document
+      i18n:
+        zh:
+          description: 跳到文档第一行
+    - keys: G
+      description: Jump to the last line of the document
+      i18n:
+        zh:
+          description: 跳到文档最后一行
+    - keys: <number>G
+      description: Jump to a specific line number
+      i18n:
+        zh:
+          description: 跳到指定行号
+  commands:
+    - command: gg
+      description: Go to the first line of the file
+      i18n:
+        zh:
+          description: 跳到文件第一行
+      pasteable: true
+      risk: safe
+- id: vim.movement.character
+  tool: vim
+  category: movement
+  title: Move by character
+  i18n:
+    zh:
+      title: 按字符移动
+  intent:
+    verbs:
+      - move
+      - left
+      - right
+      - up
+      - down
+      - 移动
+      - 左
+      - 右
+    objects:
+      - character
+      - 字符
+    queries:
+      - vim move left right
+      - vim 上下左右移动
+      - vim h j k l
+  shortcuts:
+    - keys: h
+      description: Move one character to the left
+      i18n:
+        zh:
+          description: 向左移动一个字符
+    - keys: l
+      description: Move one character to the right
+      i18n:
+        zh:
+          description: 向右移动一个字符
+    - keys: j
+      description: Move one line down
+      i18n:
+        zh:
+          description: 向下移动一行
+    - keys: k
+      description: Move one line up
+      i18n:
+        zh:
+          description: 向上移动一行
+  commands:
+    - command: h
+      description: Move one character left
+      i18n:
+        zh:
+          description: 向左移动一个字符
+      pasteable: true
+      risk: safe
+- id: vim.movement.document
+  tool: vim
+  category: movement
+  title: Move by document
+  i18n:
+    zh:
+      title: 在文档中跳转
+  intent:
+    verbs:
+      - move
+      - jump
+      - page
+      - scroll
+      - 移动
+      - 跳转
+      - 翻页
+    objects:
+      - document
+      - file
+      - page
+      - 文档
+      - 文件
+      - 页
+    queries:
+      - vim jump file
+      - vim 翻页
+      - vim 滚动文档
+  shortcuts:
+    - keys: ctrl + d
+      description: Move half a page down
+      i18n:
+        zh:
+          description: 向下翻半页
+    - keys: ctrl + u
+      description: Move half a page up
+      i18n:
+        zh:
+          description: 向上翻半页
+    - keys: ctrl + f
+      description: Move one full page down
+      i18n:
+        zh:
+          description: 向下翻一页
+    - keys: ctrl + b
+      description: Move one full page up
+      i18n:
+        zh:
+          description: 向上翻一页
+    - keys: H
+      description: Jump to the top of the screen
+      i18n:
+        zh:
+          description: 跳到屏幕顶部
+    - keys: M
+      description: Jump to the middle of the screen
+      i18n:
+        zh:
+          description: 跳到屏幕中间
+    - keys: L
+      description: Jump to the bottom of the screen
+      i18n:
+        zh:
+          description: 跳到屏幕底部
+  commands:
+    - command: "ctrl+f"
+      description: Page down
+      i18n:
+        zh:
+          description: 向下翻一页
+      pasteable: true
+      risk: safe

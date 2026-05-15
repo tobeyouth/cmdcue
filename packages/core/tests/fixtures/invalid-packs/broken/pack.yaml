@@ -1,0 +1,5 @@
+id: broken
+name: broken
+aliases:
+  - broken tool
+description: Invalid fixture pack

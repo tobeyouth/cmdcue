@@ -1,0 +1,166 @@
+- id: vim.search.find
+  tool: vim
+  category: search
+  title: Search in file
+  i18n:
+    zh:
+      title: 在文件中搜索
+  intent:
+    verbs:
+      - search
+      - find
+      - look
+      - 搜索
+      - 查找
+      - 寻找
+    objects:
+      - file
+      - document
+      - text
+      - 文件
+      - 文档
+      - 文本
+    queries:
+      - vim search
+      - vim 搜索
+      - vim 查找
+      - vim 查找文本
+  shortcuts:
+    - keys: /
+      description: Start a forward search from the cursor
+      i18n:
+        zh:
+          description: 从光标处开始向前搜索
+    - keys: "?"
+      description: Start a backward search from the cursor
+      i18n:
+        zh:
+          description: 从光标处开始向后搜索
+    - keys: n
+      description: Repeat the last search in the same direction
+      i18n:
+        zh:
+          description: 沿同一方向重复上次搜索
+    - keys: N
+      description: Repeat the last search in the opposite direction
+      i18n:
+        zh:
+          description: 沿相反方向重复上次搜索
+    - keys: "*"
+      description: Search for the word under the cursor forward
+      i18n:
+        zh:
+          description: 向前搜索光标下的单词
+    - keys: "#"
+      description: Search for the word under the cursor backward
+      i18n:
+        zh:
+          description: 向后搜索光标下的单词
+  commands:
+    - command: "/"
+      description: Start forward search
+      i18n:
+        zh:
+          description: 开始向前搜索
+      pasteable: true
+      risk: safe
+- id: vim.search.replace
+  tool: vim
+  category: search
+  title: Find and replace
+  i18n:
+    zh:
+      title: 查找并替换
+  intent:
+    verbs:
+      - replace
+      - substitute
+      - change
+      - 替换
+      - 替换
+      - 更改
+    objects:
+      - text
+      - word
+      - pattern
+      - 文本
+      - 单词
+      - 模式
+    queries:
+      - vim replace
+      - vim 替换
+      - vim 批量替换
+      - vim substitute
+  shortcuts: []
+  commands:
+    - command: ":s/<old>/<new>/g"
+      description: Replace all occurrences of <old> with <new> on the current line
+      i18n:
+        zh:
+          description: 将当前行中所有 <old> 替换为 <new>
+      pasteable: true
+      risk: safe
+    - command: ":%s/<old>/<new>/g"
+      description: Replace all occurrences in the entire file
+      i18n:
+        zh:
+          description: 将整个文件中所有匹配项替换
+      pasteable: true
+      risk: safe
+    - command: ":%s/<old>/<new>/gc"
+      description: Replace with confirmation prompt for each occurrence
+      i18n:
+        zh:
+          description: 逐个确认替换（每个匹配都会询问）
+      pasteable: true
+      risk: safe
+  notes:
+    - Replace <old> and <new> before running. Use escape sequences (e.g. \/) for slashes in the pattern.
+- id: vim.search.goto
+  tool: vim
+  category: search
+  title: Go to line number
+  i18n:
+    zh:
+      title: 跳转到指定行号
+  intent:
+    verbs:
+      - goto
+      - jump
+      - go
+      - line
+      - 跳转
+      - 转到
+      - 行号
+    objects:
+      - line
+      - line number
+      - 行
+      - 行号
+    queries:
+      - vim goto line
+      - vim 跳转到行号
+      - vim 跳到指定行
+  shortcuts: []
+  commands:
+    - command: ":<number>"
+      description: Go to a specific line number
+      i18n:
+        zh:
+          description: 跳转到指定行号
+      pasteable: true
+      risk: safe
+    - command: gg
+      description: Go to the first line
+      i18n:
+        zh:
+          description: 跳转到第一行
+      pasteable: true
+      risk: safe
+    - command: G
+      description: Go to the last line
+      i18n:
+        zh:
+          description: 跳转到最后一行
+      pasteable: true
+      risk: safe

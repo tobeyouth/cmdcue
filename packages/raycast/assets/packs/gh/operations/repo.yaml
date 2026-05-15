@@ -1,0 +1,396 @@
+# =============================================================================
+# GH REPO — Repository operations
+# https://cli.github.com/manual/gh_repo
+# =============================================================================
+
+- id: gh.repo.view
+  tool: gh
+  category: repo
+  title: View a repository
+  i18n:
+    zh:
+      title: 查看仓库
+  intent:
+    verbs:
+      - view
+      - show
+      - inspect
+      - 查看
+      - 显示
+    objects:
+      - repository
+      - repo
+      - 仓库
+    queries:
+      - gh repo view
+      - view repository
+      - 查看仓库
+      - gh repo 查看
+  shortcuts: []
+  commands:
+    - command: gh repo view
+      description: View the current repository
+      i18n:
+        zh:
+          description: 查看当前仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo view <owner>/<repo>
+      description: View a specific repository
+      i18n:
+        zh:
+          description: 查看指定仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo view <owner>/<repo> --web
+      description: Open the repository in the browser
+      i18n:
+        zh:
+          description: 在浏览器中打开仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo view <owner>/<repo> --json <fields>
+      description: View repository info as JSON
+      i18n:
+        zh:
+          description: 以 JSON 格式查看仓库信息
+      pasteable: true
+      risk: safe
+  notes:
+    - Without arguments, views the current repository
+
+- id: gh.repo.list
+  tool: gh
+  category: repo
+  title: List repositories
+  i18n:
+    zh:
+      title: 列出仓库
+  intent:
+    verbs:
+      - list
+      - show
+      - browse
+      - 列出
+      - 查看
+    objects:
+      - repository
+      - repo
+      - repositories
+      - 仓库
+    queries:
+      - gh repo list
+      - list repositories
+      - 列出仓库
+      - gh repo list 查看
+  shortcuts: []
+  commands:
+    - command: gh repo list <owner>
+      description: List repositories for a user or organization
+      i18n:
+        zh:
+          description: 列出用户或组织的仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo list <owner> --source
+      description: List only non-fork repositories
+      i18n:
+        zh:
+          description: 仅列出非 fork 的仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo list <owner> --public
+      description: List only public repositories
+      i18n:
+        zh:
+          description: 仅列出公开仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo list <owner> --private
+      description: List only private repositories
+      i18n:
+        zh:
+          description: 仅列出私有仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo list <owner> --limit <number>
+      description: List the first <number> repositories
+      i18n:
+        zh:
+          description: 列出前 <number> 个仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo list <owner> --json <fields>
+      description: List repositories as JSON
+      i18n:
+        zh:
+          description: 以 JSON 格式列出仓库
+      pasteable: true
+      risk: safe
+  notes:
+    - Default limit is 30 repositories
+
+- id: gh.repo.create
+  tool: gh
+  category: repo
+  title: Create a repository
+  i18n:
+    zh:
+      title: 创建仓库
+  intent:
+    verbs:
+      - create
+      - new
+      - init
+      - 创建
+      - 新建
+    objects:
+      - repository
+      - repo
+      - 仓库
+    queries:
+      - gh repo create
+      - create repository
+      - 创建仓库
+      - gh repo 新建
+  shortcuts: []
+  commands:
+    - command: gh repo create <repo-name>
+      description: Create a new repository on the authenticated account
+      i18n:
+        zh:
+          description: 在当前账号下创建新仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo create <repo-name> --public
+      description: Create a public repository
+      i18n:
+        zh:
+          description: 创建公开仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo create <repo-name> --private
+      description: Create a private repository
+      i18n:
+        zh:
+          description: 创建私有仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo create <repo-name> --clone
+      description: Create and clone the repository locally
+      i18n:
+        zh:
+          description: 创建仓库并克隆到本地
+      pasteable: true
+      risk: safe
+    - command: gh repo create <repo-name> --gitignore <template>
+      description: Create with a .gitignore template
+      i18n:
+        zh:
+          description: 创建时添加 .gitignore 模板
+      pasteable: true
+      risk: safe
+    - command: gh repo create <repo-name> --license <license>
+      description: Create with a license file
+      i18n:
+        zh:
+          description: 创建时添加许可证文件
+      pasteable: true
+      risk: safe
+    - command: gh repo create <org>/<repo-name>
+      description: Create a repository under an organization
+      i18n:
+        zh:
+          description: 在组织下创建仓库
+      pasteable: true
+      risk: safe
+  notes:
+    - Creates the remote repository and optionally clones it
+
+- id: gh.repo.fork
+  tool: gh
+  category: repo
+  title: Fork a repository
+  i18n:
+    zh:
+      title: Fork 仓库
+  intent:
+    verbs:
+      - fork
+      - clone
+      - fork
+      - 分叉
+    objects:
+      - repository
+      - repo
+      - 仓库
+    queries:
+      - gh repo fork
+      - fork repository
+      - fork 仓库
+      - gh repo fork 分叉
+  shortcuts: []
+  commands:
+    - command: gh repo fork <owner>/<repo>
+      description: Fork the specified repository
+      i18n:
+        zh:
+          description: Fork 指定仓库
+      pasteable: true
+      risk: safe
+    - command: gh repo fork <owner>/<repo> --clone
+      description: Fork and clone to local directory
+      i18n:
+        zh:
+          description: Fork 并克隆到本地
+      pasteable: true
+      risk: safe
+    - command: gh repo fork <owner>/<repo> --remote
+      description: Fork and add the original as upstream remote
+      i18n:
+        zh:
+          description: Fork 并将原仓库添加为 upstream
+      pasteable: true
+      risk: safe
+  notes:
+    - If already forked, updates the existing fork to match upstream
+
+- id: gh.repo.clone
+  tool: gh
+  category: repo
+  title: Clone a repository
+  i18n:
+    zh:
+      title: 克隆仓库
+  intent:
+    verbs:
+      - clone
+      - checkout
+      - download
+      - 克隆
+      - 下载
+    objects:
+      - repository
+      - repo
+      - 仓库
+    queries:
+      - gh repo clone
+      - clone repository
+      - 克隆仓库
+      - gh repo clone 克隆
+  shortcuts: []
+  commands:
+    - command: gh repo clone <owner>/<repo>
+      description: Clone the repository to the current directory
+      i18n:
+        zh:
+          description: 将仓库克隆到当前目录
+      pasteable: true
+      risk: safe
+    - command: gh repo clone <owner>/<repo> -- --depth <depth>
+      description: Clone with shallow history (git args after --)
+      i18n:
+        zh:
+          description: 浅克隆（只保留最近一次提交）
+      pasteable: true
+      risk: safe
+  notes:
+    - Delegates to git clone, passing through git arguments after --
+
+- id: gh.repo.sync
+  tool: gh
+  category: repo
+  title: Sync a repository
+  i18n:
+    zh:
+      title: 同步仓库
+  intent:
+    verbs:
+      - sync
+      - update
+      - pull
+      - 同步
+      - 更新
+    objects:
+      - repository
+      - repo
+      - branch
+      - 仓库
+      - 分支
+    queries:
+      - gh repo sync
+      - sync repository
+      - 同步仓库
+      - gh repo sync 同步
+  shortcuts: []
+  commands:
+    - command: gh repo sync
+      description: Sync the current branch with the default branch
+      i18n:
+        zh:
+          description: 将当前分支与默认分支同步
+      pasteable: true
+      risk: safe
+    - command: gh repo sync <owner>/<repo>
+      description: Sync all branches of a forked repository with upstream
+      i18n:
+        zh:
+          description: 将 fork 的仓库所有分支与上游同步
+      pasteable: true
+      risk: safe
+    - command: gh repo sync --branch <branch-name>
+      description: Sync a specific branch
+      i18n:
+        zh:
+          description: 同步指定分支
+      pasteable: true
+      risk: safe
+    - command: gh repo sync --force
+      description: Force sync (overwrite local changes)
+      i18n:
+        zh:
+          description: 强制同步（覆盖本地更改）
+      pasteable: true
+      risk: destructive
+  notes:
+    - Updates the current branch to match the default branch on remote
+
+- id: gh.repo.archive
+  tool: gh
+  category: repo
+  title: Archive a repository
+  i18n:
+    zh:
+      title: 归档仓库
+  intent:
+    verbs:
+      - archive
+      - archive
+      - 归档
+    objects:
+      - repository
+      - repo
+      - 仓库
+    queries:
+      - gh repo archive
+      - archive repository
+      - 归档仓库
+      - gh repo archive 归档
+  shortcuts: []
+  commands:
+    - command: gh repo archive <owner>/<repo> --yes
+      description: Archive the repository (mark as read-only)
+      i18n:
+        zh:
+          description: 归档仓库（标记为只读）
+      pasteable: true
+      risk: destructive
+    - command: gh repo archive <owner>/<repo> --undo --yes
+      description: Unarchive a repository
+      i18n:
+        zh:
+          description: 取消归档仓库
+      pasteable: true
+      risk: destructive
+  notes:
+    - Archived repositories are read-only but remain accessible

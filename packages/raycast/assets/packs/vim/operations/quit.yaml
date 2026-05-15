@@ -1,0 +1,112 @@
+- id: vim.quit.normal
+  tool: vim
+  category: quit
+  title: Quit if there are no unsaved changes
+  i18n:
+    zh:
+      title: 没有未保存修改时退出 Vim
+  intent:
+    verbs:
+      - quit
+      - exit
+      - close
+      - 退出
+      - 关掉
+    objects:
+      - vim
+      - editor
+      - 编辑器
+    queries:
+      - vim quit
+      - 如何关掉 vim
+      - vim 退出
+  shortcuts:
+    - keys: Esc then :q
+      description: Leave insert mode, then quit
+      i18n:
+        zh:
+          description: 先按 Esc 退出插入模式，再输入 :q 退出
+  commands:
+    - command: ":q"
+      description: Quit Vim when there are no unsaved changes
+      i18n:
+        zh:
+          description: 当没有未保存修改时退出 Vim
+      pasteable: true
+      risk: safe
+  notes:
+    - If Vim says there are unsaved changes, use :wq to save or :q! to discard changes.
+- id: vim.quit.force
+  tool: vim
+  category: quit
+  title: Quit without saving
+  i18n:
+    zh:
+      title: 不保存退出 Vim
+  intent:
+    verbs:
+      - quit
+      - exit
+      - close
+      - force
+      - 退出
+      - 关掉
+      - 强制
+    objects:
+      - vim
+      - editor
+      - 编辑器
+    queries:
+      - vim quit without saving
+      - vim force quit
+      - 不保存退出 vim
+  shortcuts:
+    - keys: Esc then :q!
+      description: Leave insert mode, then force quit
+      i18n:
+        zh:
+          description: 先按 Esc 退出插入模式，再输入 :q! 强制退出
+  commands:
+    - command: ":q!"
+      description: Quit Vim and discard unsaved changes
+      i18n:
+        zh:
+          description: 强制退出 Vim，放弃所有未保存的修改
+      pasteable: true
+      risk: destructive
+- id: vim.quit.save
+  tool: vim
+  category: quit
+  title: Save and quit
+  i18n:
+    zh:
+      title: 保存并退出 Vim
+  intent:
+    verbs:
+      - save
+      - write
+      - quit
+      - exit
+      - 保存
+      - 退出
+    objects:
+      - vim
+      - file
+      - 文件
+    queries:
+      - vim save and quit
+      - 保存并退出 vim
+  shortcuts:
+    - keys: Esc then :wq
+      description: Leave insert mode, write the file, then quit
+      i18n:
+        zh:
+          description: 先按 Esc 退出插入模式，再输入 :wq 保存并退出
+  commands:
+    - command: ":wq"
+      description: Save the current file and quit Vim
+      i18n:
+        zh:
+          description: 保存当前文件并退出 Vim
+      pasteable: true
+      risk: safe
