@@ -5,7 +5,8 @@
   "type": "commonjs",
   "main": "dist/cli.js",
   "bin": {
-    "cmdcue": "dist/cli.js"
+    "cmdcue": "dist/cli.js",
+    "cq": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",

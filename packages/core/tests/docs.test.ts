@@ -12,6 +12,8 @@ describe("pack authoring guide", () => {
     expect(guide).toContain("Do not invent aliases");
     expect(guide).toContain("Parameter Templates");
     expect(guide).toContain('gh pr create --title "<title>" --body "<body>"');
+    expect(guide).toContain("Skill: Derive Pack From man");
+    expect(guide).toContain("./skills/derive-pack-from-man.md");
     expect(guide).toContain("npm run validate-packs");
     expect(guide).toContain("intent.queries");
   });

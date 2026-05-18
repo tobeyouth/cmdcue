@@ -131,6 +131,9 @@ packages/core/packs/<tool>/operations/*.yaml
 
 For full schema, validation rules, and AI-agent pack generation guidance, see [docs/pack-authoring.md](docs/pack-authoring.md).
 
+If you want another AI agent to generate packs from unfamiliar tools, use:
+- [docs/skills/derive-pack-from-man.md](docs/skills/derive-pack-from-man.md)
+
 ## Development
 
 ```bash

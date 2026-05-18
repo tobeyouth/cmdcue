@@ -65,10 +65,17 @@
       pasteable: true
       risk: safe
     - command: gh pr create --base <base-branch>
-      description: Specify the target branch to merge into
+      description: Specify the target branch to merge into (-B/--base)
       i18n:
         zh:
-          description: 指定目标分支
+          description: 指定目标分支（-B/--base）
+      pasteable: true
+      risk: safe
+    - command: gh pr create --head <head-branch>
+      description: Specify the source branch that contains the PR commits (-H/--head)
+      i18n:
+        zh:
+          description: 指定包含 PR 提交的源分支（-H/--head）
       pasteable: true
       risk: safe
     - command: gh pr create --reviewer <user-or-team>

@@ -327,3 +327,14 @@ Requirements:
 - Do not invent aliases or shortcuts.
 - Run npm run sync-packs, npm run build, npm run validate-packs, npm test, and npm run typecheck.
 ```
+
+## Skill: Derive Pack From man
+
+For reusable skill-style instructions, use:
+
+- [docs/skills/derive-pack-from-man.md](./skills/derive-pack-from-man.md)
+
+It includes:
+
+- Objective / Inputs / Workflow / Non-Goals
+- Prompt Template For Another Agent

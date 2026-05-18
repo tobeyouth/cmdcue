@@ -36,3 +36,5 @@ local_config.py
 lib/
 es/
 .npm-cache
+dist/
+packages/*/dist/

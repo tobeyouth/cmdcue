@@ -50,7 +50,7 @@ function formatSearch(query: string): string {
 
   return results
     .map(({ operation, score }, index) => {
-      const command = primaryCommand(operation);
+      const command = primaryCommand(operation, query);
       const shortcut = operation.shortcuts[0]?.keys;
       const cues = [command ? `cmd: ${preferredCommandText(command)}` : undefined, shortcut ? `keys: ${shortcut}` : undefined].filter(Boolean).join(" | ");
       return `${index + 1}. ${operationTitle(operation, config.language)} [${operation.tool}/${operation.category}] score=${score}\n   ${cues}`;

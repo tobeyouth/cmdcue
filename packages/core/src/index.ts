@@ -3,6 +3,7 @@ export * from "./ai-settings";
 export * from "./answer";
 export * from "./config";
 export * from "./display";
+export * from "./history";
 export * from "./i18n";
 export * from "./pack-loader";
 export * from "./pack-validator";
