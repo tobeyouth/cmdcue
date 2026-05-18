@@ -25,7 +25,9 @@ function usage(): string {
     "",
     "Usage:",
     "  cmdcue <query>",
+    "  cmdcue search <query> [--json]",
     "  cmdcue ask <question>",
+    "  cmdcue show <operation-id> [--json]",
     "  cmdcue config",
     "  cmdcue language",
     "  cmdcue language set <en|zh>",
@@ -35,48 +37,177 @@ function usage(): string {
     "",
     "Examples:",
     "  cmdcue tmux window",
+    "  cmdcue search tmux window --json",
     "  cmdcue tmux 关掉 window",
     "  cmdcue ask 如何关掉 vim",
+    "  cmdcue show gh.pr.create",
     "  cmdcue language set zh",
     "  cmdcue validate-packs packages/core/packs"
   ].join("\n");
 }
 
-function formatSearch(query: string): string {
+function stripFlag(args: string[], flag: string): { args: string[]; present: boolean } {
+  let present = false;
+  const next = args.filter((arg) => {
+    if (arg === flag) {
+      present = true;
+      return false;
+    }
+    return true;
+  });
+  return { args: next, present };
+}
+
+function serializeSearch(query: string) {
   const config = loadConfig();
   const operations = loadOperations();
   const results = searchOperations(query, operations, 30);
-  if (results.length === 0) return `No local operation matched: ${query}`;
+  return results.map(({ operation, score }) => {
+    const command = primaryCommand(operation, query);
+    const shortcut = operation.shortcuts[0]?.keys;
+    return {
+      id: operation.id,
+      title: operationTitle(operation, config.language),
+      tool: operation.tool,
+      category: operation.category,
+      score,
+      command: command ? preferredCommandText(command) : null,
+      shortcut: shortcut ?? null
+    };
+  });
+}
 
-  return results
-    .map(({ operation, score }, index) => {
-      const command = primaryCommand(operation, query);
-      const shortcut = operation.shortcuts[0]?.keys;
-      const cues = [command ? `cmd: ${preferredCommandText(command)}` : undefined, shortcut ? `keys: ${shortcut}` : undefined].filter(Boolean).join(" | ");
-      return `${index + 1}. ${operationTitle(operation, config.language)} [${operation.tool}/${operation.category}] score=${score}\n   ${cues}`;
+function formatSearch(query: string): string {
+  const rows = serializeSearch(query);
+  if (rows.length === 0) return `No local operation matched: ${query}`;
+  return rows
+    .map((row, index) => {
+      const cues = [row.command ? `cmd: ${row.command}` : undefined, row.shortcut ? `keys: ${row.shortcut}` : undefined].filter(Boolean).join(" | ");
+      return `${index + 1}. ${row.title} [${row.tool}/${row.category}] score=${row.score}\n   ${cues}`;
     })
     .join("\n");
 }
 
-async function formatAsk(question: string): Promise<string> {
+async function serializeAsk(question: string): Promise<Record<string, unknown>> {
   const config = loadConfig();
   const operations = loadOperations();
   const results = searchOperations(question, operations, 6);
   if (results.length === 0) {
     const prompt = buildGroundedAnswerPrompt(question, [], config.language);
-    if (!isAiConfigured(config.ai)) return ["No local operation matched.", "", "AI is not configured.", "", "Grounding prompt:", prompt].join("\n");
-    return askOpenAICompatible(prompt, config.ai);
+    if (!isAiConfigured(config.ai)) {
+      return {
+        matched: false,
+        message: "No local operation matched.",
+        aiConfigured: false,
+        groundingPrompt: prompt
+      };
+    }
+    return {
+      matched: false,
+      aiConfigured: true,
+      answer: await askOpenAICompatible(prompt, config.ai),
+      groundingPrompt: prompt
+    };
   }
 
   const top = results[0].operation;
-  const direct = [
-    operationTitle(top, config.language),
-    ...top.commands.map((command) => `command: ${preferredCommandText(command)} (${commandDescription(command, config.language)}, risk=${command.risk})`),
-    ...top.shortcuts.map((shortcut) => `shortcut: ${shortcutKeys(shortcut.keys)} (${shortcutDescription(shortcut, config.language)})`),
-    ...(top.notes ?? []).map((note) => `note: ${note}`)
-  ].join("\n");
+  return {
+    matched: true,
+    operation: {
+      id: top.id,
+      title: operationTitle(top, config.language),
+      tool: top.tool,
+      category: top.category
+    },
+    commands: top.commands.map((command) => ({
+      command: preferredCommandText(command),
+      description: commandDescription(command, config.language),
+      risk: command.risk
+    })),
+    shortcuts: top.shortcuts.map((shortcut) => ({
+      keys: shortcutKeys(shortcut.keys),
+      description: shortcutDescription(shortcut, config.language)
+    })),
+    notes: top.notes ?? [],
+    groundingPrompt: buildGroundedAnswerPrompt(question, results, config.language)
+  };
+}
 
-  return [direct, "", "AI grounding prompt:", buildGroundedAnswerPrompt(question, results, config.language)].join("\n");
+async function formatAsk(question: string): Promise<string> {
+  const payload = await serializeAsk(question);
+  if (payload.matched === false && payload.aiConfigured === true && payload.answer) return String(payload.answer);
+  if (payload.matched === false) {
+    return [
+      "No local operation matched.",
+      "",
+      "AI is not configured.",
+      "",
+      "Grounding prompt:",
+      String(payload.groundingPrompt ?? "")
+    ].join("\n");
+  }
+  const operation = payload.operation as { title: string } | undefined;
+  const commands = (payload.commands as Array<{ command: string; description: string; risk: string }> | undefined) ?? [];
+  const shortcuts = (payload.shortcuts as Array<{ keys: string; description: string }> | undefined) ?? [];
+  const notes = (payload.notes as string[] | undefined) ?? [];
+  const direct = [
+    operation?.title ?? "",
+    ...commands.map((command) => `command: ${command.command} (${command.description}, risk=${command.risk})`),
+    ...shortcuts.map((shortcut) => `shortcut: ${shortcut.keys} (${shortcut.description})`),
+    ...notes.map((note) => `note: ${note}`)
+  ].join("\n");
+  return [direct, "", "AI grounding prompt:", String(payload.groundingPrompt ?? "")].join("\n");
+}
+
+function formatOperation(operationId: string): string {
+  const config = loadConfig();
+  const operation = loadOperations().find((candidate) => candidate.id === operationId);
+  if (!operation) {
+    process.exitCode = 1;
+    return `Operation not found: ${operationId}`;
+  }
+  const commands = operation.commands.length
+    ? operation.commands.map((command) => `command: ${preferredCommandText(command)} (${commandDescription(command, config.language)}, risk=${command.risk})`)
+    : ["command: <none>"];
+  const shortcuts = operation.shortcuts.length
+    ? operation.shortcuts.map((shortcut) => `shortcut: ${shortcutKeys(shortcut.keys)} (${shortcutDescription(shortcut, config.language)})`)
+    : ["shortcut: <none>"];
+  const notes = operation.notes?.length ? operation.notes.map((note) => `note: ${note}`) : ["note: <none>"];
+  return [
+    `${operationTitle(operation, config.language)} [${operation.id}]`,
+    `tool: ${operation.tool}`,
+    `category: ${operation.category}`,
+    ...commands,
+    ...shortcuts,
+    ...notes
+  ].join("\n");
+}
+
+function serializeOperation(operationId: string): Record<string, unknown> {
+  const config = loadConfig();
+  const operation = loadOperations().find((candidate) => candidate.id === operationId);
+  if (!operation) {
+    process.exitCode = 1;
+    return { found: false, operationId };
+  }
+  return {
+    found: true,
+    id: operation.id,
+    title: operationTitle(operation, config.language),
+    tool: operation.tool,
+    category: operation.category,
+    intent: operation.intent,
+    commands: operation.commands.map((command) => ({
+      command: preferredCommandText(command),
+      description: commandDescription(command, config.language),
+      risk: command.risk
+    })),
+    shortcuts: operation.shortcuts.map((shortcut) => ({
+      keys: shortcutKeys(shortcut.keys),
+      description: shortcutDescription(shortcut, config.language)
+    })),
+    notes: operation.notes ?? []
+  };
 }
 
 function parseOptions(args: string[]): Record<string, string> {
@@ -176,8 +307,39 @@ async function main(argv: string[]): Promise<void> {
   }
 
   const [command, ...rest] = args;
+  if (command === "search") {
+    const parsed = stripFlag(rest, "--json");
+    const query = parsed.args.join(" ");
+    if (parsed.present) {
+      console.log(JSON.stringify({ query, results: serializeSearch(query) }, null, 2));
+      return;
+    }
+    console.log(formatSearch(query));
+    return;
+  }
   if (command === "ask") {
-    console.log(await formatAsk(rest.join(" ")));
+    const parsed = stripFlag(rest, "--json");
+    const question = parsed.args.join(" ");
+    if (parsed.present) {
+      console.log(JSON.stringify(await serializeAsk(question), null, 2));
+      return;
+    }
+    console.log(await formatAsk(question));
+    return;
+  }
+  if (command === "show") {
+    const parsed = stripFlag(rest, "--json");
+    const operationId = parsed.args[0] ?? "";
+    if (!operationId) {
+      process.exitCode = 1;
+      console.log("Usage: cmdcue show <operation-id> [--json]");
+      return;
+    }
+    if (parsed.present) {
+      console.log(JSON.stringify(serializeOperation(operationId), null, 2));
+      return;
+    }
+    console.log(formatOperation(operationId));
     return;
   }
   if (command === "config" || command === "settings") {
@@ -205,7 +367,13 @@ async function main(argv: string[]): Promise<void> {
     return;
   }
 
-  console.log(formatSearch(args.join(" ")));
+  const parsed = stripFlag(args, "--json");
+  const query = parsed.args.join(" ");
+  if (parsed.present) {
+    console.log(JSON.stringify({ query, results: serializeSearch(query) }, null, 2));
+    return;
+  }
+  console.log(formatSearch(query));
 }
 
 main(process.argv).catch((error) => {

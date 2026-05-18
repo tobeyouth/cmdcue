@@ -44,6 +44,12 @@ function OperationActions({ operation, language, query }: { operation: Operation
   const primaryCommandText = primaryCommand ? preferredCommandText(primaryCommand) : undefined;
   const primaryShortcutText = primaryShortcut ? shortcutKeys(primaryShortcut.keys) : undefined;
   const shortcutMode = prefersShortcut(query) && primaryShortcutText;
+  const secondaryCommands = operation.commands
+    .map((command) => preferredCommandText(command))
+    .filter((command) => command && command !== primaryCommandText);
+  const secondaryShortcuts = operation.shortcuts
+    .map((shortcut) => shortcutKeys(shortcut.keys))
+    .filter((shortcut) => shortcut && shortcut !== primaryShortcutText);
 
   return (
     <ActionPanel>
@@ -51,6 +57,15 @@ function OperationActions({ operation, language, query }: { operation: Operation
       {primaryCommandText ? <Action.Paste title="Paste Command" content={primaryCommandText} icon={Icon.Terminal} /> : null}
       {primaryCommandText ? <Action.CopyToClipboard title="Copy Command" content={primaryCommandText} shortcut={{ modifiers: ["cmd"], key: "c" }} /> : null}
       {primaryShortcutText && !shortcutMode ? <Action.CopyToClipboard title="Copy Shortcut Hint" content={primaryShortcutText} icon={Icon.Keyboard} /> : null}
+      {secondaryCommands.map((command, index) => (
+        <Action.CopyToClipboard key={`copy-command-${index}`} title={`Copy Command: ${command}`} content={command} icon={Icon.Clipboard} />
+      ))}
+      {secondaryCommands.map((command, index) => (
+        <Action.Paste key={`paste-command-${index}`} title={`Paste Command: ${command}`} content={command} icon={Icon.Terminal} />
+      ))}
+      {secondaryShortcuts.map((shortcut, index) => (
+        <Action.CopyToClipboard key={`copy-shortcut-${index}`} title={`Copy Shortcut Hint: ${shortcut}`} content={shortcut} icon={Icon.Keyboard} />
+      ))}
       <Action.Push title="Show Details" target={<OperationDetail operation={operation} language={language} />} icon={Icon.Sidebar} />
       {primaryCommandText ? (
         <Action
